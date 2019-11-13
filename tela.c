@@ -47,6 +47,9 @@ void imprime_lista(t_lista* L)
 		else if (e->tipo == alien3)
 			mvprintw(e->i, e->j, desenho_t3);
 		
+		else if (e->tipo == alien_morrendo)
+			mvprintw(e->i, e->j, desenho_tmorrendo);
+
 		else if (e->tipo == canhao)
 			mvprintw(e->i, e->j, desenho_canhao);
 		

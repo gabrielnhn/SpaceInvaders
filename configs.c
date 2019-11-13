@@ -32,6 +32,7 @@
 #define alien1 'a'
 #define alien2 'b'
 #define alien3 'c'
+#define alien_morrendo 'x'
 #define canhao 'd'
 #define tiro_canhao '"'
 #define tiro_alien '.'
@@ -43,6 +44,7 @@
 #define desenho_t1 "@@@\n@@@\n@@@ "
 #define desenho_t2 "###\n###\n###"
 #define desenho_t3 "&&&\n&&&\n&&&"
+#define desenho_tmorrendo "x x\n x \nx x"
 #define borda 'o'
 #define desenho_canhao " ~ \n~~~"
 #define tiro_canhao '"'

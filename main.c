@@ -60,14 +60,9 @@ void space_invaders(J* jogo, int velocidade_inicial)
 	{
 		imprime_tela(jogo);
 		input = ler_input();
-		move_e_atira_canhao(jogo, input);
 		
-		move_e_atira_aliens(jogo);
-		if ( !alien_chegou(jogo) )
-		{
-			organiza_tabuleiros(jogo);
-			verifica_hitboxes(jogo);
-		}
+		processa_lista( &(jogo->lista), input );
+
 		usleep(15 * milisec);
 		jogo->contador_tempo = jogo->contador_tempo + 1;
 
