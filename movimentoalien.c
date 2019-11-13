@@ -1,4 +1,4 @@
- vvoid move_direita_alien(elemento* A)
+ void move_direita_alien(elemento* A)
 {
 	A->j++;
 }
@@ -26,22 +26,39 @@ int hora_de_mover_aliens(J* jogo)
 	}
 }
 
-/--refazer--?/
-int tocou_borda(J* jogo, alien array[])
+int tocou_borda(J* jogo)
 {
-	int k;
-	for(k = 0; k < jogo->quantidade_aliens; k++)
+	t_lista* L;
+	L = &(jogo->lista);
+
+	inicializa_atual_inicio(L);
+	int tam;
+	tamanho_lista(&tam, L);
+
+	elemento* e;
+	int i;
+	for(i = 1; i <= tam; i++)
 	{
-		if (array[k].j == 1 || array[k].j == NUM_COLUNAS_TABULEIRO)
+		consulta_item_atual(e, L);
+
+		if (e->j == 1 || e->j + 2 == NUM_COLUNAS_TABULEIRO)
 			return 1;
+		incrementa_atual(L);
 	}
 	return 0;
 }
 
-/--refazer--/
-void atira_alien(J* jogo, alien A)
+
+void atira_alien(t_lista* L, elemento* A)
 {
-	jogo->TirosNovo->posi[A.i][A.j] = tiro_alien;
+	elemento e_tiro_alien;
+	e_tiro_alien.tipo = tiro_alien;
+
+	e_tiro_alien.i = A->i - 3;
+	e_tiro_alien.j = A->j + 1;
+
+	insere_inicio_lista(e_tiro_alien, L );
+
 }
 
 int hora_de_atirar_aliens(J* jogo)
@@ -52,7 +69,7 @@ int hora_de_atirar_aliens(J* jogo)
 		return 0;
 }
 
-void move_e_atira_alien(elemento* e_alien, int tocou, int mover, int atirar, int sentido)
+void move_e_atira_alien(t_lista* L, elemento* e_alien, int tocou, int mover, int atirar, int sentido)
 {
 	if ( mover &&  tocou )
 	{
@@ -68,7 +85,7 @@ void move_e_atira_alien(elemento* e_alien, int tocou, int mover, int atirar, int
 				move_esquerda_alien(e_alien);
 	}
 	
-	if ( atirar && ( (random() % 200) < 1 ) )
+	if ( atirar && ( (rand() % 200) < 1 ) )
 	/* 0.5% de chance */
-		atira_alien(jogo, e_alien);		
+		atira_alien(L, e_alien);		
 }

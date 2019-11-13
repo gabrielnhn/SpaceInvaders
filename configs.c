@@ -47,23 +47,19 @@
 #define desenho_tmorrendo "x x\n x \nx x"
 #define borda 'o'
 #define desenho_canhao " ~ \n~~~"
-#define tiro_canhao '"'
-#define tiro_alien '.'
-#define barreira '+'
+#define desenho_tiro_canhao "\""
+#define desenho_tiro_alien "."
+#define desenho_barreira "+"
 
-/*struct struct_tabuleiro
-{
-	char posi[NUM_LINHAS_TABULEIRO + 2][NUM_COLUNAS_TABULEIRO + 2]; 
-};
-typedef struct struct_tabuleiro tabuleiro;
-*/
 
+/*
 struct s_elemento
 {
 	int i, j;
 	char tipo;
 };
 typedef struct s_elemento elemento;
+*/
 
 struct struct_jogo
 {

@@ -3,12 +3,13 @@
 void processa_lista(J* jogo, char input)
 {
 	int mover, tocou, atirar;
-	mover = hora_de_mover_aliens(jogo);
 	tocou = 0;
+	atirar = hora_de_atirar_aliens(jogo);
+	mover = hora_de_mover_aliens(jogo);
 	if ( mover )
 	{
 		mover = 1;
-		tocou = tocou_borda();
+		tocou = tocou_borda(jogo);
 		if (tocou)
 		{
 			jogo->sentido = !(jogo->sentido);
@@ -16,6 +17,7 @@ void processa_lista(J* jogo, char input)
 				jogo->velocidade++;
 		}
 	}
+
 
 	t_lista* L;
 	L = &(jogo->lista);
@@ -31,22 +33,22 @@ void processa_lista(J* jogo, char input)
 		consulta_item_atual(e, L)
 
 		if (e->tipo == alien1 || e->tipo == alien2 || e->tipo == alien3)
-			PROCESSA ALIEN;
-		
+		{
+			move_e_atira_alien(L, e, tocou, mover, atirar, jogo->sentido);
+			PROCESSA_COLISAO;
+		}
+
 		else if (e->tipo == alien_morrendo)
 			MATA_ALIEN;
 
-		else if (e->tipo == canhao)
-			mvprintw(e->i, e->j, desenho_canhao);
-		
-		else if (e->tipo == tiro_canhao)
-			mvprintw(e->i, e->j, tiro_canhao);
-		
-		else if (e->tipo == tiro_alien)
-			mvprintw(e->i, e->j, tiro_alien);
+		else if (e->tipo == tiro_canhao || e->tipo == tiro_alien)
+			PROCESSA_COLISAO;
 
 		else if (e->tipo == barreira)
 			mvprintw(e->i, e->j, barreira);
+
+		else if (e->tipo == canhao)
+			move_e_atira_canhao(jogo, e, canhao);
 
 		incrementa_atual(L);
 	}	

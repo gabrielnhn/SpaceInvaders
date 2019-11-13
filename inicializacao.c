@@ -9,31 +9,28 @@ char tipo_do_alien(int linha_relativa)
 		return alien1;
 }
 
-void cria_alien_na_coordenada(elemento* A, int linha_posicao, int coluna_posicao, int linha_relativa)
+void cria_alien_na_coordenada(J* jogo, int linha_posicao, int coluna_posicao, int linha_relativa)
 {
-	A->i = linha_posicao;
-	A->j = coluna_posicao;
-	A->tipo = ( tipo_do_alien(linha_relativa) );
+	elemento A;
+	A.i = linha_posicao;
+	A.j = coluna_posicao;
+	A.tipo = ( tipo_do_alien(linha_relativa) );
+
+	insere_inicio_lista(A, &(jogo->lista) );
 }
 
-/--refazer--/
 void coloca_aliens(J* jogo)
 {
 	jogo->quantidade_aliens = NUM_ALIENS;
-	int k = 0;
+	
+	int i_relativo = 1;
 	int i, j;
-	int i_anterior = 1;
-	int j_anterior = 1;
-	for(i = 1; i <= NUM_LINHAS_ALIENS; i++)
-	{
-		for(j = 1; j <= NUM_COLUNAS_ALIENS; j++)
-		{
-			cria_alien_na_coordenada( &(jogo->array_aliens[k]), i_anterior + 1 , j_anterior + 2 , i);
-			j_anterior = j_anterior + 2;
-			k++;
-		}
-		j_anterior = 1;
-		i_anterior = i_anterior + 1;
+	for(i = 1; i <= NUM_LINHAS_ALIENS; i = i + 5)
+	{	
+		for(j = 1; j <= NUM_COLUNAS_ALIENS; j = j + 5)
+			cria_alien_na_coordenada(jogo, i , j , i_relativo);
+
+		i_relativo++;
 	}
 }
 
@@ -46,7 +43,7 @@ void coloca_canhao_e_barreiras(J* jogo)
 	e_canhao.i = NUM_LINHAS_TABULEIRO;
 	e_canhao.j = (NUM_COLUNAS_TABULEIRO / 2);
 	e_canhao.tipo = canhao;
-	insere_inicio_lista( e_canhao, &(jogo->lista) )
+	insere_inicio_lista( e_canhao, &(jogo->lista) );
 	
 	elemento e_barreira;
 	e_barreira.tipo = barreira;
@@ -60,7 +57,7 @@ void coloca_canhao_e_barreiras(J* jogo)
 		{
 			if ( (coluna <= 14) || ( (24 <= coluna) && (coluna <= 34) ) )
 			{
-				e_barreira.j = k;
+				e_barreira.j = coluna;
 				insere_inicio_lista( e_barreira, &(jogo->lista) );
 			}
 		}

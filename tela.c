@@ -5,27 +5,6 @@ void inicializa_tela()
     curs_set(FALSE);        /* não mostra o cursor na tela */
 }
 
-void imprime_tabuleiros(tabuleiro* A, tabuleiro* B, tabuleiro* C)
-/* imprime tabuleiro C por cima de B e B por cima de A */
-{
-	int i, j;
-	for (i = 1; i <= NUM_LINHAS_TABULEIRO; i++)
-		for(j = 1; j <= NUM_COLUNAS_TABULEIRO; j++)
-		{
-			if (C->posi[i][j] != vazio)
-				mvprintw(i, j, "%c", C->posi[i][j]);
-
-			else if (B->posi[i][j] != vazio)
-				mvprintw(i, j, "%c", B->posi[i][j]);
-
-			else if (A->posi[i][j] != vazio)
-				mvprintw(i, j, "%c", A->posi[i][j]);
-			
-			else
-				mvprintw(i, j, " ");
-		}
-}
-
 void imprime_lista(t_lista* L)
 {
 	inicializa_atual_inicio(L);
@@ -36,7 +15,7 @@ void imprime_lista(t_lista* L)
 	int i;
 	for(i = 1; i <= tam; i++)
 	{
-		consulta_item_atual(e, L)
+		consulta_item_atual(e, L);
 
 		if (e->tipo == alien1)
 			mvprintw(e->i, e->j, desenho_t1);
@@ -54,13 +33,13 @@ void imprime_lista(t_lista* L)
 			mvprintw(e->i, e->j, desenho_canhao);
 		
 		else if (e->tipo == tiro_canhao)
-			mvprintw(e->i, e->j, tiro_canhao);
+			mvprintw(e->i, e->j, desenho_tiro_canhao);
 		
 		else if (e->tipo == tiro_alien)
-			mvprintw(e->i, e->j, tiro_alien);
+			mvprintw(e->i, e->j, desenho_tiro_alien);
 
 		else if (e->tipo == barreira)
-			mvprintw(e->i, e->j, barreira);
+			mvprintw(e->i, e->j, desenho_barreira);
 
 		incrementa_atual(L);
 	}
@@ -84,8 +63,8 @@ void imprime_borda()
 
 void imprime_tela(J* jogo)
 {
-	
-	imprime_tabuleiros( &(jogo->Matriz_canhao), jogo->TirosNovo, &(jogo->Matriz_aliens) );
+	erase();
+	imprime_lista( &(jogo->lista) );
 	refresh();
 }
 

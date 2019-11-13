@@ -1,14 +1,14 @@
-void move_esquerda_canhao(elemento* canhao)
+void move_esquerda_canhao(elemento* e_canhao)
 {
 
-	if ( dentro_da_matriz(canhao->i, canhao->j - 1) )
-		canhao->j--;
+	if ( dentro_da_matriz(e_canhao->i, e_canhao->j - 1) )
+		e_canhao->j--;
 }
 
-void move_direita_canhao(elemento* canhao)
+void move_direita_canhao(elemento* e_canhao)
 {
-	if ( dentro_da_matriz(canhao->i, canhao->j + 1) )
-		canhao->j++;
+	if ( dentro_da_matriz(e_canhao->i, e_canhao->j + 1) )
+		e_canhao->j++;
 }
 
 /*
@@ -29,22 +29,26 @@ nao pode ter mais de 3 tiros no tabuleiro */
 	return 1;
 }
 */
-/--refazer--/
-void atira_canhao(J* jogo, tipo_canhao canhao)
+
+void atira_canhao(t_lista* L, elemento* e_canhao)
 /* coloca um tiro na posicao acima do canhao no tabuleiro de tiros */
 {
-	if ( pode_atirar_canhao(jogo->TirosNovo) )
-		jogo->TirosNovo->posi[NUM_LINHAS_TABULEIRO][canhao.j] = tiro_canhao; /* explicacao na pagina z */
+	elemento e_tiro_canhao;
+	e_tiro_canhao.tipo = tiro_canhao;
+	e_tiro_canhao.i = e_canhao->i - 1;
+	e_tiro_canhao.j = e_canhao->j + 1;
+
+	insere_inicio_lista(e_tiro_canhao, L);
 }
 
-void move_e_atira_canhao(J* jogo, char input)
+void move_e_atira_canhao(t_lista* L, elemento* e_canhao, char input)
 {
 		if (input == input_tiro)
-			atira_canhao(jogo, jogo->canhao);
+			atira_canhao(L, e_canhao);
 
 		else if (input == input_esquerda)
-			move_esquerda_canhao( &(jogo->canhao) ); /* explicacao na pagina y */
+			move_esquerda_canhao( e_canhao ); /* explicacao na pagina y */
 
 		else if (input == input_direita)
-			move_direita_canhao( &(jogo->canhao) ); /* explicacao na pagina y */
+			move_direita_canhao( e_canhao ); /* explicacao na pagina y */
 }

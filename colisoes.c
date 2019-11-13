@@ -1,9 +1,8 @@
 #include <stdlib.h> 
 #include <time.h>  
-
+/*
 void manipula_tiros(J* jogo)
 /-- refazer --/
-/* move os tiros e faz os mesmos colidirem ENTRE SI */
 {
 	troca_ponteiros( &(jogo->TirosNovo), &(jogo->TirosAnterior) );
 	zera_tabuleiro(jogo->TirosNovo);
@@ -12,22 +11,17 @@ void manipula_tiros(J* jogo)
 	for(i = 1; i <= NUM_LINHAS_TABULEIRO; i++)
 		for (j = 1; j <= NUM_COLUNAS_TABULEIRO; j++)
 		{
-			/* TIRO DO ALIEN */
 			if ( (jogo->TirosAnterior->posi[i][j] == tiro_alien) && dentro_da_matriz(i + 1, j) )
 			{ 
 				if (jogo->TirosAnterior->posi[i + 1][j] == tiro_canhao)
-				/* o lugar em baixo do tiro alien eh um tiro do canhao (eles colidem) */
 					jogo->TirosAnterior->posi[i + 1][j] = vazio;
 			
 				else 
-				/* se o lugar em baixo do tiro do alien eh vazio */
 					jogo->TirosNovo->posi[i + 1][j] = tiro_alien;
 			}
-			/* TIRO DO CANHAO */
 			else if ( (jogo->TirosAnterior->posi[i][j] ==  tiro_canhao) && dentro_da_matriz(i - 1, j) )
 			{
 				if (jogo->TirosNovo->posi[i - 1][j] == tiro_alien)
-				/* o lugar acima do tiro do canhao eh um tiro de alien*/
 					jogo->TirosNovo->posi[i - 1][j] = vazio;
 				else
 					jogo->TirosNovo->posi[i - 1][j] = tiro_canhao;			
@@ -111,7 +105,7 @@ void explode_barreira_ou_canhao(J* jogo)
 			jogo->vivo = 0;
 		}
 }
-
+*/
 int hora_de_verificar_hitboxes(J* jogo)
 {
 	if (jogo->contador_tempo % 7 == 0)
@@ -119,7 +113,7 @@ int hora_de_verificar_hitboxes(J* jogo)
 	else
 		return 0;
 }
-
+/*
 /--refazer--/
 void verifica_hitboxes(J* jogo)
 {
@@ -157,3 +151,4 @@ void verifica_hitboxesv1(J* jogo)
 		explode_barreira_ou_canhao(jogo);	
 	}
 }
+*/

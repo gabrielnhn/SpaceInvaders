@@ -1,3 +1,4 @@
+#include "lib_lista.h"
 #include "configs.c"
 #include "inicializacao.c"
 #include "movimentoalien.c"
@@ -26,11 +27,28 @@ int ganhou(J* jogo)
 int alien_chegou(J* jogo)
 /* retorna 1 se, para qualquer alien vivo, seu 'i'(linha) e maior/igual que o numero de linhas do tabuleiro */
 {
-	int k;
-	/--refazerfor--
-	for (k = 0; k < (jogo->quantidade_aliens); k++)
-		if ( (jogo->array_aliens[k].i) >= NUM_LINHAS_TABULEIRO )
-			return 1;
+	t_lista* L;
+	L = &(jogo->lista);
+
+	inicializa_atual_inicio(L);
+	int tam;
+	tamanho_lista(&tam, L);
+
+	elemento* e;
+	int i;
+	for(i = 1; i <= tam; i++)
+	{
+		consulta_item_atual(e, L);
+
+		if (e->tipo == alien1 || e->tipo == alien2 || e->tipo == alien3)
+		{
+			if ( e->i + 2 >= NUM_LINHAS_TABULEIRO )
+				return 1;
+		}
+
+		incrementa_atual(L);
+	}	
+	
 	return 0;
 }
 
@@ -52,7 +70,6 @@ void space_invaders(J* jogo, int velocidade_inicial)
 {
 	inicia_jogo(jogo, velocidade_inicial);
 	inicializa_configuracoes();
-	organiza_tabuleiros(jogo);
 	/*imprime_borda();*/
 	char input;
 

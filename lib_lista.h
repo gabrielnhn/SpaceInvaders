@@ -1,3 +1,9 @@
+struct s_elemento
+{
+	int i, j;
+	char tipo;
+};
+typedef struct s_elemento elemento;
 
 
 struct t_nodo {
