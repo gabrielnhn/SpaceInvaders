@@ -6,6 +6,7 @@
 #include "colisoes.c"
 #include "tela.c"
 #include "posicionamento.c"
+#include "processamento.c"
 
 
 void inicializa_estruturas(J* jogo)
@@ -87,7 +88,7 @@ void space_invaders(J* jogo, int velocidade_inicial)
 	while ( !acabou(jogo) && !pediu_pra_sair(input) );
 
 
-	destroi_lista(&(jogo->lista))
+	destroi_lista(&(jogo->lista));
 
 	if ( ganhou(jogo) && !pediu_pra_sair(input) )
 		space_invaders(jogo, velocidade_inicial + 3);

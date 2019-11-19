@@ -30,7 +30,7 @@ void processa_lista(J* jogo, char input)
 	int i;
 	for(i = 1; i <= tam; i++)
 	{
-		consulta_item_atual(e, L)
+		consulta_item_atual(e, L);
 
 		if (e->tipo == alien1 || e->tipo == alien2 || e->tipo == alien3)
 		{
@@ -45,10 +45,13 @@ void processa_lista(J* jogo, char input)
 			PROCESSA_COLISAO;
 
 		else if (e->tipo == barreira)
-			mvprintw(e->i, e->j, barreira);
+			PROCESSA_COLISAO;
 
 		else if (e->tipo == canhao)
+		{
 			move_e_atira_canhao(jogo, e, canhao);
+			PROCESSA_COLISAO;
+		}
 
 		incrementa_atual(L);
 	}	
