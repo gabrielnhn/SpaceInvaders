@@ -3,7 +3,7 @@ char tipo_do_alien(int linha_relativa)
 {
 	if (linha_relativa == 1)
 		return alien3;
-	else if (linha_relativa < 4)
+	else if (linha_relativa < NUM_LINHAS_ALIENS - 1)
 		return alien2;
 	else
 		return alien1;
@@ -25,9 +25,9 @@ void coloca_aliens(J* jogo)
 	
 	int i_relativo = 1;
 	int i, j;
-	for(i = 1; i <= NUM_LINHAS_ALIENS; i = i + 5)
+	for(i = 1; i <= NUM_LINHAS_ALIENS; i = i + 2 * tamanho_alien_y - 1)
 	{	
-		for(j = 1; j <= NUM_COLUNAS_ALIENS; j = j + 5)
+		for(j = 1; j <= NUM_COLUNAS_ALIENS; j = j + 2 * tamanho_alien_x - 1)
 			cria_alien_na_coordenada(jogo, i , j , i_relativo);
 
 		i_relativo++;

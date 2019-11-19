@@ -8,6 +8,12 @@
 #define constante_inicial_tempo 25
 #define VELOCIDADE_MAXIMA (constante_inicial_tempo - 1)
 #define QUANTIDADE_TIROS 4
+#define tamanho_alien_x 3
+#define tamanho_alien_y 3
+#define tamanho_nave_x 8
+#define tamanho_nave_y 3
+#define tamanho_canhao_x 3
+#define tamanho_canhao_y 2
 
 /* inputs e definicoes de esquerda e direita */
 #define input_tiro ' '
@@ -37,6 +43,7 @@
 #define tiro_canhao '"'
 #define tiro_alien '.'
 #define barreira '+'
+#define nave '9'
 
 
 /* Desenhos */
@@ -46,11 +53,11 @@
 #define desenho_t3 "&&&\n&&&\n&&&"
 #define desenho_tmorrendo "x x\n x \nx x"
 #define borda 'o'
-#define desenho_canhao " ~ \n~~~"
+#define desenho_canhao "~~~\n~~~"
 #define desenho_tiro_canhao "\""
 #define desenho_tiro_alien "."
 #define desenho_barreira "+"
-
+#define desenho_nave 
 
 /*
 struct s_elemento

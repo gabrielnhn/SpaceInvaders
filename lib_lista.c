@@ -357,6 +357,43 @@ int remove_item_atual(elemento *e, t_lista *l)
     return 1;
 
 }
+
+void copia_lista(t_lista* A, t_lista* B, int contador_atual_A)
+/* nao altera atual */
+{
+    int tamA;
+    tamanho_lista(&tamA, A);
+    inicializa_lista(B);
+    tamanho_lista(&tam, L);
+
+
+    inicializa_atual_inicio(A);
+	elemento* e;
+	int i;
+	for(i = 1; i <= tamA; i++)
+	{
+		consulta_item_atual(e, L);
+
+        insere_fim_lista(*e, L);
+
+		incrementa_atual(L);
+	}
+
+    inicializa_atual_inicio(A);
+    for(i = 1; i < contador_atual_A; i++)
+		incrementa_atual(L);
+    
+
+}
+
+void apaga_lista(t_lista* l)
+{
+    int auxiliar;
+    while ( !lista_vazia(l) )
+        remove_inicio_lista(&auxiliar, l);
+
+}
+
 void destroi_lista(t_lista *l)
 /*
     Remove todos os elementos da lista e faz com que ela aponte para NULL.

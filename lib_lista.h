@@ -126,3 +126,10 @@ int consulta_item_atual(elemento *e, t_lista *l);
   Retorna 1 se houve sucesso e zero caso contrário.
 */
 int remove_item_atual(elemento *e, t_lista *l);
+
+void copia_lista(t_lista* A, t_lista* B, int contador_atual_A);
+/* nao altera atual */
+
+void destroi_lista(t_lista* l);
+
+void apaga_lista(t_lista* l);
