@@ -5,7 +5,6 @@
 #include "movimentocanhao.c"
 #include "colisoes.c"
 #include "tela.c"
-#include "posicionamento.c"
 #include "processamento.c"
 
 

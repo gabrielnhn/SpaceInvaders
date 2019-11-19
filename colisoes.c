@@ -1,5 +1,4 @@
-#include <stdlib.h> 
-#include <time.h>  
+ 
 
 void move_tiro(t_lista* L, elemento* e, int contador_atual, int* removeu)
 {
