@@ -8,6 +8,7 @@ int hora_de_mover_tiro(J* jogo)
 
 void processa_lista(J* jogo, char input)
 {
+	
 	int mover_alien, mover_tiro, tocou, atirar;
 	tocou = 0;
 	atirar = hora_de_atirar_aliens(jogo);
@@ -24,12 +25,15 @@ void processa_lista(J* jogo, char input)
 		}
 	}
 
-
 	t_lista L;
 	inicializa_lista(&L);
+
 	copia_lista( &(jogo->lista), &L, 1 );
-	apaga_lista( &(jogo->lista));
+	destroi_lista( &(jogo->lista));
+	
+	inicializa_lista( &(jogo->lista) );
 	inicializa_atual_inicio(&L);
+
 	int tam;
 	tamanho_lista(&tam, &L);
 
@@ -50,11 +54,11 @@ void processa_lista(J* jogo, char input)
 
 		else if (e->tipo == alien1 || e->tipo == alien2 || e->tipo == alien3)
 		{
-			move_e_atira_alien(&L, e, tocou, mover_alien, atirar, jogo->sentido);
+			move_e_atira_alien(&(jogo->lista), e, tocou, mover_alien, atirar, jogo->sentido);
 			processa_colisao(jogo, &L, e, i, &removeu);
 		}
 
-		if (e->tipo == barreira)
+		else if (e->tipo == barreira)
 			processa_colisao(jogo, &L, e, i, &removeu);
 
 		else if (e->tipo == alien_morrendo)
@@ -62,7 +66,7 @@ void processa_lista(J* jogo, char input)
 
 		else if (e->tipo == canhao)
 		{
-			move_e_atira_canhao(&L, e, input);
+			move_e_atira_canhao(&(jogo->lista), e, input);
 			processa_colisao(jogo, &L, e, i, &removeu);
 			if (removeu)
 				jogo->vivo = 0;

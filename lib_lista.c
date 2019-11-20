@@ -197,63 +197,6 @@ int remove_fim_lista(elemento *e, t_lista *l)
     l->tamanho--;
     return 1;
 }
-/* int remove_item_lista(elemento e, elemento *e_aux, t_lista *l)*/
-/*
-    Se o elemento chave existir na lista, o retorna em *item.
-    Retorna 1 se a operação foi bem sucedida e zero caso contrário
-    (elemento não encontrado também retorna zero).
-*/
-/*
-{
-    if ( lista_vazia(l) )
-        return 0;
-
-    t_nodo* auxiliar;
-    auxiliar = l->ini->prox;
-
-    int i;
-    for(i = 1; i < (l->tamanho) && auxiliar->e != e; i++)
-        auxiliar = auxiliar->prox;
-
-    if ( auxiliar->e != e )
-        return 0;
-
-    if (i == l->tamanho)
-        return remove_fim_lista(e_aux, l);
-
-
-    e_aux = auxiliar->e;
-    auxiliar->prev->prox = auxiliar->prox;
-    auxiliar->prox->prev = auxiliar->prev;
-    free(auxiliar);
-
-    l->tamanho--;
-    return 1;
-}
-*/
-/* int pertence_lista(elemento e, t_lista *l) */
-/*
-    Retorna 1 se o elemento contendo a chave e existe na lista,
-    caso contrário retorna zero.
-*/
-/*
-{
-    if ( lista_vazia(l) )
-        return 0;
-
-    t_nodo* auxiliar;
-    auxiliar = l->ini->prox;
-
-    int i;
-    for(i = 1; i < (l->tamanho) && auxiliar->e != e; i++)
-        auxiliar = auxiliar->prox;
-
-    if ( auxiliar->e == e )
-        return 1;
-    else
-        return 0;
-}
-*/
 int inicializa_atual_inicio(t_lista *l)
 /* 
     Inicializa o ponteiro atual para o primeiro elemento da lista.
@@ -398,7 +341,7 @@ void destroi_lista(t_lista *l)
 {
     elemento auxiliar;
     while ( !lista_vazia(l) )
-        remove_inicio_lista(&auxiliar, l);
+        remove_fim_lista(&auxiliar, l);
 
     free(l->ini);
     free(l->fim);

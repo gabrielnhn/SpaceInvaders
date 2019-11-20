@@ -1,6 +1,5 @@
 void move_esquerda_canhao(elemento* e_canhao)
 {
-
 	if ( dentro_da_matriz(e_canhao->i, e_canhao->j - 1) )
 		e_canhao->j--;
 }

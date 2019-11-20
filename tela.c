@@ -48,6 +48,7 @@ void imprime_lista(t_lista* L)
 			mvprintw(e->i, e->j, desenho_canhao_line1);
 			mvprintw(e->i + 1, e->j, desenho_canhao_line2);
 		}
+		
 		else if (e->tipo == tiro_canhao)
 			mvprintw(e->i, e->j, desenho_tiro_canhao);
 		
