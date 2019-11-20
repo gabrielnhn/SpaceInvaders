@@ -35,11 +35,11 @@ int tocou_borda(J* jogo)
 	int tam;
 	tamanho_lista(&tam, L);
 
-	elemento* e;
+	elemento *e;
 	int i;
 	for(i = 1; i <= tam; i++)
 	{
-		consulta_item_atual(e, L);
+		consulta_item_atual(&e, L);
 
 		if (e->j == 1 || e->j + 2 == NUM_COLUNAS_TABULEIRO)
 			return 1;

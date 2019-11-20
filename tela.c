@@ -15,23 +15,39 @@ void imprime_lista(t_lista* L)
 	int i;
 	for(i = 1; i <= tam; i++)
 	{
-		consulta_item_atual(e, L);
+		consulta_item_atual(&e, L);
 
 		if (e->tipo == alien1)
-			mvprintw(e->i, e->j, desenho_t1);
-		
+		{
+			mvprintw(e->i, e->j, desenho_t1_line1);
+			mvprintw(e->i + 1, e->j, desenho_t1_line2);
+			mvprintw(e->i + 2, e->j, desenho_t1_line3);
+		}
 		else if (e->tipo == alien2)
-			mvprintw(e->i, e->j, desenho_t2);
-		
+		{
+			mvprintw(e->i, e->j, desenho_t2_line1);
+			mvprintw(e->i + 1, e->j, desenho_t2_line2);
+			mvprintw(e->i + 2, e->j, desenho_t2_line3);
+		}
 		else if (e->tipo == alien3)
-			mvprintw(e->i, e->j, desenho_t3);
+		{
+			mvprintw(e->i, e->j, desenho_t3_line1);
+			mvprintw(e->i + 1, e->j, desenho_t3_line2);
+			mvprintw(e->i + 2, e->j, desenho_t3_line3);
+		}
 		
 		else if (e->tipo == alien_morrendo)
-			mvprintw(e->i, e->j, desenho_tmorrendo);
+		{
+			mvprintw(e->i, e->j, desenho_tmorrendo_line1);
+			mvprintw(e->i + 1, e->j, desenho_tmorrendo_line2);
+			mvprintw(e->i + 2, e->j, desenho_tmorrendo_line3);
+		}
 
 		else if (e->tipo == canhao)
-			mvprintw(e->i, e->j, desenho_canhao);
-		
+		{
+			mvprintw(e->i, e->j, desenho_canhao_line1);
+			mvprintw(e->i + 1, e->j, desenho_canhao_line2);
+		}
 		else if (e->tipo == tiro_canhao)
 			mvprintw(e->i, e->j, desenho_tiro_canhao);
 		
@@ -63,7 +79,7 @@ void imprime_borda()
 
 void imprime_tela(J* jogo)
 {
-	erase();
+	imprime_borda();
 	imprime_lista( &(jogo->lista) );
 	refresh();
 }

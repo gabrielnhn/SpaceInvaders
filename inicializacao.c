@@ -23,14 +23,19 @@ void coloca_aliens(J* jogo)
 {
 	jogo->quantidade_aliens = NUM_ALIENS;
 	
-	int i_relativo = 1;
+	int i_relativo, j_relativo;
 	int i, j;
-	for(i = 1; i <= NUM_LINHAS_ALIENS; i = i + 2 * tamanho_alien_y - 1)
+	i = 2;
+	for(i_relativo = 1; i_relativo <= NUM_LINHAS_ALIENS; i_relativo++)
 	{	
-		for(j = 1; j <= NUM_COLUNAS_ALIENS; j = j + 2 * tamanho_alien_x - 1)
+		j = 2;
+		for(j_relativo = 1; j_relativo <= NUM_COLUNAS_ALIENS; j_relativo++)
+		{
 			cria_alien_na_coordenada(jogo, i , j , i_relativo);
-
-		i_relativo++;
+			j = j + 2 * tamanho_alien_x - 1;
+		}
+	
+		i = i + 2 * tamanho_alien_y - 1;
 	}
 }
 
@@ -67,9 +72,12 @@ void coloca_canhao_e_barreiras(J* jogo)
 void inicia_jogo(J* jogo, int velocidade_inicial)
 {
 	jogo->vivo = 1;
+	inicializa_lista( &(jogo->lista) );
 	coloca_canhao_e_barreiras(jogo);
 	coloca_aliens(jogo);
 	jogo->velocidade = velocidade_inicial;
 	jogo->sentido = sentido_direita;
 	jogo->contador_tempo = 0;
+	jogo->quantidade_aliens = NUM_ALIENS;
+	jogo->paralisacao = 0;
 }

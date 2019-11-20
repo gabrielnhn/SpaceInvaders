@@ -37,9 +37,6 @@ int inicializa_lista(t_lista *l)
     l->ini = comeco;
     l->fim = final;
 
-    /* decisao de projeto */
-    inicializa_atual_inicio(l);
-
     l->ini->prox = l->fim;
     l->fim->prox = NULL;
     l->fim->prev = l->ini;
@@ -72,7 +69,6 @@ int insere_inicio_lista(elemento e, t_lista *l)
         return 0;
     
     novo->e = e;
-
     novo->prox = l->ini->prox;
     novo->prev = l->ini;
     l->ini->prox->prev = novo;
@@ -132,14 +128,14 @@ int insere_ordenado_lista(elemento e, t_lista *l)
     aux = l->ini->prox;
 
     int i;
-    for (i = 1; i < (l->tamanho) && (aux->e) < e ; i++)
+    for (i = 1; i < (l->tamanho) && (aux->e.tipo) < e.tipo ; i++)
         aux = aux->prox;
     
     /* casos especiais */
-    if (i == 1 && (aux->e) >= e)
+    if (i == 1 && (aux->e.tipo) >= e.tipo)
         return insere_inicio_lista(e, l);
       
-    if (i >= l->tamanho && (aux->e) < e)
+    if (i >= l->tamanho && (aux->e.tipo) < e.tipo)
         return insere_fim_lista(e, l);
     
     /* caso geral */
@@ -201,12 +197,13 @@ int remove_fim_lista(elemento *e, t_lista *l)
     l->tamanho--;
     return 1;
 }
-int remove_item_lista(elemento e, elemento *e_aux, t_lista *l)
+/* int remove_item_lista(elemento e, elemento *e_aux, t_lista *l)*/
 /*
     Se o elemento chave existir na lista, o retorna em *item.
     Retorna 1 se a operação foi bem sucedida e zero caso contrário
     (elemento não encontrado também retorna zero).
 */
+/*
 {
     if ( lista_vazia(l) )
         return 0;
@@ -215,7 +212,7 @@ int remove_item_lista(elemento e, elemento *e_aux, t_lista *l)
     auxiliar = l->ini->prox;
 
     int i;
-    for(i = 1; i < (l->tamanho) && auxiliar->E != e; i++)
+    for(i = 1; i < (l->tamanho) && auxiliar->e != e; i++)
         auxiliar = auxiliar->prox;
 
     if ( auxiliar->e != e )
@@ -233,12 +230,13 @@ int remove_item_lista(elemento e, elemento *e_aux, t_lista *l)
     l->tamanho--;
     return 1;
 }
-
-int pertence_lista(elemento e, t_lista *l)
+*/
+/* int pertence_lista(elemento e, t_lista *l) */
 /*
     Retorna 1 se o elemento contendo a chave e existe na lista,
     caso contrário retorna zero.
 */
+/*
 {
     if ( lista_vazia(l) )
         return 0;
@@ -255,6 +253,7 @@ int pertence_lista(elemento e, t_lista *l)
     else
         return 0;
 }
+*/
 int inicializa_atual_inicio(t_lista *l)
 /* 
     Inicializa o ponteiro atual para o primeiro elemento da lista.
@@ -311,9 +310,9 @@ void decrementa_atual(t_lista *l)
     else
         l->atual = l->atual->prev;
 }
-int consulta_item_atual(elemento *e, t_lista *l)
+int consulta_item_atual(elemento **e, t_lista *l)
 /*
-    Retorna em *item o valor contido na chave apontada pelo ponteiro atual. 
+    retorna em e o endereco do elemento atual 
     Se atual não for válido a função retorna zero senão retorna 1.
 */
 {
@@ -321,7 +320,7 @@ int consulta_item_atual(elemento *e, t_lista *l)
         return 0;
     else
     {
-        *e = l->atual->e;
+        *e = &(l->atual->e);
         return 1;
     }
 }
@@ -363,8 +362,6 @@ void copia_lista(t_lista* A, t_lista* B, int contador_atual_A)
 {
     int tamA;
     tamanho_lista(&tamA, A);
-    inicializa_lista(B);
-    tamanho_lista(&tam, L);
 
 
     inicializa_atual_inicio(A);
@@ -372,23 +369,24 @@ void copia_lista(t_lista* A, t_lista* B, int contador_atual_A)
 	int i;
 	for(i = 1; i <= tamA; i++)
 	{
-		consulta_item_atual(e, L);
+		consulta_item_atual(&e, A);
 
-        insere_fim_lista(*e, L);
+        insere_fim_lista(*e, B);
 
-		incrementa_atual(L);
+		incrementa_atual(A);
 	}
 
+    /* recupera atual */
     inicializa_atual_inicio(A);
     for(i = 1; i < contador_atual_A; i++)
-		incrementa_atual(L);
+		incrementa_atual(A);
     
 
 }
 
 void apaga_lista(t_lista* l)
 {
-    int auxiliar;
+    elemento auxiliar;
     while ( !lista_vazia(l) )
         remove_inicio_lista(&auxiliar, l);
 
@@ -399,7 +397,7 @@ void destroi_lista(t_lista *l)
     Remove todos os elementos da lista e faz com que ela aponte para NULL.
 */
 {
-    int auxiliar;
+    elemento auxiliar;
     while ( !lista_vazia(l) )
         remove_inicio_lista(&auxiliar, l);
 

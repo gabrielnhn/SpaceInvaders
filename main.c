@@ -16,7 +16,10 @@ void inicializa_estruturas(J* jogo)
 
 int morto(J* jogo)
 {
-	return !(jogo->vivo);
+	if (jogo->vivo == 1)
+		return 0;
+	else
+		return 1;
 }
 
 int ganhou(J* jogo)
@@ -38,7 +41,7 @@ int alien_chegou(J* jogo)
 	int i;
 	for(i = 1; i <= tam; i++)
 	{
-		consulta_item_atual(e, L);
+		consulta_item_atual(&e, L);
 
 		if (e->tipo == alien1 || e->tipo == alien2 || e->tipo == alien3)
 		{
@@ -54,9 +57,15 @@ int alien_chegou(J* jogo)
 
 int acabou(J* jogo)
 {
-	if ( morto(jogo) || alien_chegou(jogo) || ganhou(jogo) )
-		return 1;
-	return 0;
+	if ( morto(jogo) )
+		printf("morto\n");
+	else if ( alien_chegou(jogo) )
+		printf("chegou\n");
+	else if ( ganhou(jogo) )
+		printf("ganhou\n");
+	else 
+		return 0;
+	return 1;
 }
 
 int pediu_pra_sair(char input)
@@ -70,22 +79,22 @@ void space_invaders(J* jogo, int velocidade_inicial)
 {
 	inicia_jogo(jogo, velocidade_inicial);
 	inicializa_configuracoes();
-	/*imprime_borda();*/
+	imprime_borda();
 	char input;
-
 	do 
 	{
 		imprime_tela(jogo);
 		input = ler_input();
-		
-		processa_lista( &(jogo->lista), input );
+		processa_lista( jogo, input );
 
-		usleep(15 * milisec);
+		usleep(1500 * milisec);
 		jogo->contador_tempo = jogo->contador_tempo + 1;
-
+		printf("bruh");
 	}
 	while ( !acabou(jogo) && !pediu_pra_sair(input) );
 
+	if ( pediu_pra_sair(input) )
+		printf("pediu\n");
 
 	destroi_lista(&(jogo->lista));
 
@@ -108,5 +117,5 @@ int main()
 	space_invaders(jogo, 1);
 	
 	finaliza_tela();
-	return 0;
+	return 9;
 }

@@ -25,8 +25,8 @@
 #define sentido_esquerda 0
 
 /* Tamanho do Tabuleiro */
-#define NUM_LINHAS_TABULEIRO 90 /* ? */
-#define NUM_COLUNAS_TABULEIRO 50 /* ? */
+#define NUM_LINHAS_TABULEIRO 70 /* ? */
+#define NUM_COLUNAS_TABULEIRO 150 /* ? */
 #define COEFICIENTE_SEPARACAO 8 /* ? */
 
 /* Linhas e colunas de Aliens */
@@ -48,16 +48,26 @@
 
 /* Desenhos */
 /* t = tipo de alien */
-#define desenho_t1 "@@@\n@@@\n@@@ "
-#define desenho_t2 "###\n###\n###"
-#define desenho_t3 "&&&\n&&&\n&&&"
-#define desenho_tmorrendo "x x\n x \nx x"
+
+#define desenho_t1_line1 "@@@"
+#define desenho_t1_line2 "@@@"
+#define desenho_t1_line3 "@@@"
+#define desenho_t2_line1 "###"
+#define desenho_t2_line2 "###"
+#define desenho_t2_line3 "###"
+#define desenho_t3_line1 "&&&"
+#define desenho_t3_line2 "&&&"
+#define desenho_t3_line3 "&&&"
+#define desenho_tmorrendo_line1 "x x"
+#define desenho_tmorrendo_line2 " x "
+#define desenho_tmorrendo_line3 "x x"
 #define borda 'o'
-#define desenho_canhao "~~~\n~~~"
+#define desenho_canhao_line1 "~~~"
+#define desenho_canhao_line2 "~~~"
 #define desenho_tiro_canhao "\""
 #define desenho_tiro_alien "."
 #define desenho_barreira "+"
-#define desenho_nave 
+#define desenho_nave .
 
 /*
 struct s_elemento

@@ -80,7 +80,7 @@ int remove_fim_lista(elemento *e, t_lista *l);
   Retorna 1 se a operação foi bem sucedida e zero caso contrário
   (elemento não encontrado também retorna zero).
 */
-int remove_item_lista(elemento e, elemento *e_aux, t_lista *l);
+/*int remove_item_lista(elemento e, elemento *e_aux, t_lista *l);*/
 
 /*
   Retorna 1 se o elemento contendo a chave chave existe na lista,
@@ -118,7 +118,7 @@ void decrementa_atual(t_lista *l);
   Retorna em *item o valor contido na chave apontada pelo ponteiro atual. 
   Se atual não for válido a função retorna zero senão retorna 1.
 */
-int consulta_item_atual(elemento *e, t_lista *l);
+int consulta_item_atual(elemento **e, t_lista *l);
 
 /*
   Remove o elemento apontado por atual da lista l e o retorna em *item.
