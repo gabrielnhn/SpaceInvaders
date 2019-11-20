@@ -1,6 +1,6 @@
 int hora_de_mover_tiro(J* jogo)
 {
-	if (jogo->contador_tempo % 4 == 0)
+	if (jogo->contador_tempo % 5 == 0)
 		return 1;
 	else
 		return 0;
@@ -48,7 +48,7 @@ void processa_lista(J* jogo, char input)
 
 		if (e->tipo == tiro_canhao || e->tipo == tiro_alien)
 		{
-			move_tiros(&L, e, i, mover_tiro, &removeu);
+			move_tiros(&L, e, mover_tiro, &removeu);
 			processa_colisao(jogo, &L, e, i, &removeu);
 		}
 
@@ -66,8 +66,9 @@ void processa_lista(J* jogo, char input)
 
 		else if (e->tipo == canhao)
 		{
-			move_e_atira_canhao(&(jogo->lista), e, input);
+			move_e_atira_canhao( &(jogo->lista), e, input);
 			processa_colisao(jogo, &L, e, i, &removeu);
+
 			if (removeu)
 				jogo->vivo = 0;
 		}
