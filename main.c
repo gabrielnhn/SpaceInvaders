@@ -87,9 +87,8 @@ void space_invaders(J* jogo, int velocidade_inicial)
 		input = ler_input();
 		processa_lista( jogo, input );
 
-		usleep(1500 * milisec);
+		usleep(15 * milisec);
 		jogo->contador_tempo = jogo->contador_tempo + 1;
-		printf("bruh");
 	}
 	while ( !acabou(jogo) && !pediu_pra_sair(input) );
 

@@ -378,10 +378,9 @@ void copia_lista(t_lista* A, t_lista* B, int contador_atual_A)
 
     /* recupera atual */
     inicializa_atual_inicio(A);
-    for(i = 1; i < contador_atual_A; i++)
+    for(i = 2; i <= contador_atual_A; i++)
 		incrementa_atual(A);
     
-
 }
 
 void apaga_lista(t_lista* l)

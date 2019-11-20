@@ -15,7 +15,6 @@ void processa_lista(J* jogo, char input)
 	mover_tiro = hora_de_mover_tiro(jogo);
 	if ( mover_alien )
 	{
-		mover_alien = 1;
 		tocou = tocou_borda(jogo);
 		if (tocou)
 		{
@@ -63,7 +62,7 @@ void processa_lista(J* jogo, char input)
 
 		else if (e->tipo == canhao)
 		{
-			move_e_atira_canhao(&L, e, canhao);
+			move_e_atira_canhao(&L, e, input);
 			processa_colisao(jogo, &L, e, i, &removeu);
 			if (removeu)
 				jogo->vivo = 0;

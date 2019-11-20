@@ -79,6 +79,7 @@ void imprime_borda()
 
 void imprime_tela(J* jogo)
 {
+	erase();
 	imprime_borda();
 	imprime_lista( &(jogo->lista) );
 	refresh();

@@ -6,7 +6,8 @@ struct s_elemento
 typedef struct s_elemento elemento;
 
 
-struct t_nodo {
+struct t_nodo
+{
     elemento e;
     struct t_nodo *prox;
     struct t_nodo *prev;
@@ -14,7 +15,8 @@ struct t_nodo {
 
 typedef struct t_nodo t_nodo;
 
-struct t_lista {
+struct t_lista
+{
     t_nodo *ini;
     t_nodo *atual;
     t_nodo *fim;

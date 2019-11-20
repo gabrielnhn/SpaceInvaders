@@ -25,8 +25,8 @@
 #define sentido_esquerda 0
 
 /* Tamanho do Tabuleiro */
-#define NUM_LINHAS_TABULEIRO 70 /* ? */
-#define NUM_COLUNAS_TABULEIRO 150 /* ? */
+#define NUM_LINHAS_TABULEIRO 40 /* ? */
+#define NUM_COLUNAS_TABULEIRO 100 /* ? */
 #define COEFICIENTE_SEPARACAO 8 /* ? */
 
 /* Linhas e colunas de Aliens */
