@@ -5,9 +5,9 @@
 
 /* defines normais */
 #define milisec 1000
-#define constante_inicial_tempo 25
+#define constante_inicial_tempo 15
 #define VELOCIDADE_MAXIMA (constante_inicial_tempo - 1)
-#define QUANTIDADE_TIROS 4
+#define QUANTIDADE_TIROS 1
 #define tamanho_alien_x 3
 #define tamanho_alien_y 3
 #define tamanho_nave_x 8
@@ -26,7 +26,7 @@
 
 /* Tamanho do Tabuleiro */
 #define NUM_LINHAS_TABULEIRO 40 /* ? */
-#define NUM_COLUNAS_TABULEIRO 100 /* ? */
+#define NUM_COLUNAS_TABULEIRO 80 /* ? */
 #define COEFICIENTE_SEPARACAO 8 /* ? */
 
 /* Linhas e colunas de Aliens */
@@ -49,14 +49,14 @@
 /* Desenhos */
 /* t = tipo de alien */
 
-#define desenho_t1_line1 "@@@"
-#define desenho_t1_line2 "@@@"
-#define desenho_t1_line3 "@@@"
+#define desenho_t1_line1 "@+@"
+#define desenho_t1_line2 "+@+"
+#define desenho_t1_line3 "@+@"
 #define desenho_t2_line1 "###"
-#define desenho_t2_line2 "###"
+#define desenho_t2_line2 "[#]"
 #define desenho_t2_line3 "###"
 #define desenho_t3_line1 "&&&"
-#define desenho_t3_line2 "&&&"
+#define desenho_t3_line2 "<&>"
 #define desenho_t3_line3 "&&&"
 #define desenho_tmorrendo_line1 "x x"
 #define desenho_tmorrendo_line2 " x "

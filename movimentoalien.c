@@ -40,9 +40,11 @@ int tocou_borda(J* jogo)
 	for(i = 1; i <= tam; i++)
 	{
 		consulta_item_atual(&e, L);
-
-		if (e->j == 1 || e->j + 2 == NUM_COLUNAS_TABULEIRO)
-			return 1;
+		if(e->tipo == alien1 || e->tipo == alien2 || e->tipo == alien3)
+		{
+			if (e->j == 1 || e->j + 2 == NUM_COLUNAS_TABULEIRO)
+				return 1;
+		}
 		incrementa_atual(L);
 	}
 	return 0;
@@ -63,7 +65,7 @@ void atira_alien(t_lista* L, elemento* A)
 
 int hora_de_atirar_aliens(J* jogo)
 {
-	if ( (jogo->contador_tempo % 20 == 0) && jogo->paralisacao == 0 )
+	if ( (jogo->contador_tempo % 15 == 0) && jogo->paralisacao == 0 )
 		return 1;
 	else 
 		return 0;

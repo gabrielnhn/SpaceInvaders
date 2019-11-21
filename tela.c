@@ -5,7 +5,7 @@ void inicializa_tela()
     curs_set(FALSE);        /* não mostra o cursor na tela */
 }
 
-void imprime_lista(t_lista* L)
+void imprime_lista(int contador, t_lista* L)
 {
 	inicializa_atual_inicio(L);
 	int tam;
@@ -78,11 +78,20 @@ void imprime_borda()
 	}
 }
 
+void apaga_tela()
+{
+	int i, j;
+	for(i = 1; i <= NUM_LINHAS_TABULEIRO; i++)
+		for(j = 1; j <= NUM_COLUNAS_TABULEIRO; j++)
+		{
+			mvprintw(i, j, " ");
+		}
+}
+
 void imprime_tela(J* jogo)
 {
-	erase();
-	imprime_borda();
-	imprime_lista( &(jogo->lista) );
+	apaga_tela();
+	imprime_lista( jogo->contador_tempo, &(jogo->lista) );
 	refresh();
 }
 

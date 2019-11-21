@@ -55,16 +55,14 @@ void coloca_canhao_e_barreiras(J* jogo)
 
 	int linha;
 	int coluna;
-	for(linha = NUM_LINHAS_TABULEIRO - 4; linha <= NUM_LINHAS_TABULEIRO - 2; linha++)
+	for(linha = NUM_LINHAS_TABULEIRO - 4; linha <= NUM_LINHAS_TABULEIRO - 3; linha++)
 	{
 		e_barreira.i = linha;
-		for(coluna = 4; coluna <= NUM_COLUNAS_TABULEIRO; coluna++)
+		for(coluna = 0; coluna <= NUM_COLUNAS_TABULEIRO; coluna++)
 		{
-			if ( (coluna <= 14) || ( (24 <= coluna) && (coluna <= 34) ) )
-			{
+			/*if ( coluna % 10 == 0 || coluna % 11 == 0 || coluna % 12 == 0 || coluna % 13 == 0 || coluna % 14 == 0 )*/
 				e_barreira.j = coluna;
 				insere_inicio_lista( e_barreira, &(jogo->lista) );
-			}
 		}
 	}
 }

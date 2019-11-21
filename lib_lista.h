@@ -2,6 +2,7 @@ struct s_elemento
 {
 	int i, j;
 	char tipo;
+  int contador;
 };
 typedef struct s_elemento elemento;
 

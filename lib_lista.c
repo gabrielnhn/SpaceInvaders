@@ -268,48 +268,6 @@ int consulta_item_atual(elemento **e, t_lista *l)
     }
 }
 
-int remove_item_especifico(elemento e, t_lista* l, int contador_atual)
-{
-    int tam;
-    tamanho_lista(&tam, l);
-
-
-    inicializa_atual_inicio(l);
-	elemento* aux;
-    elemento lixo;
-	int i;
-	for(i = 1; i <= tam; i++)
-	{
-		consulta_item_atual(&aux, l);
-
-        if (aux->i == e.i && aux->j == e.j && e.tipo == aux->tipo)
-        {
-            if (i == tam)
-                remove_fim_lista(&lixo, l);
-            else if (i == 1)
-                remove_inicio_lista(&lixo, l);
-            else
-            {
-                l->atual->prev->prox = l->atual->prox;
-                l->atual->prox->prev = l->atual->prev;
-                free(l->atual);
-
-                l->tamanho--;
-            }
-
-        }
-        
-		incrementa_atual(l);
-	}
-
-    /* recupera atual */
-    inicializa_atual_inicio(l);
-    for(i = 2; i <= contador_atual; i++)
-		incrementa_atual(l);
-    
-    return 1;
-}
-
 int remove_item_atual(elemento *e, t_lista *l)
 /*
     Remove o elemento apontado por atual da lista l e o retorna em *e.
@@ -341,6 +299,51 @@ int remove_item_atual(elemento *e, t_lista *l)
     l->tamanho--;
     return 1;
 
+}
+
+int remove_item_especifico(elemento e, t_lista* l, int contador_atual)
+{
+    int tam;
+    tamanho_lista(&tam, l);
+
+
+    inicializa_atual_inicio(l);
+	elemento* aux;
+    elemento lixo;
+	int i;
+    int tirou = 0;
+	for(i = 1; i <= tam && !tirou; i++)
+	{
+		consulta_item_atual(&aux, l);
+
+        if (aux->i == e.i && aux->j == e.j && e.tipo == aux->tipo)
+        {
+            /*if (i == tam)
+                remove_fim_lista(&lixo, l);
+            else if (i == 1)
+                remove_inicio_lista(&lixo, l);
+            else
+            {
+                l->atual->prev->prox = l->atual->prox;
+                l->atual->prox->prev = l->atual->prev;
+                free(l->atual);
+
+                l->tamanho--;
+            }
+            */
+            
+            remove_item_atual(&lixo, l);
+            tirou = 1;
+        }
+		incrementa_atual(l);
+	}
+
+    /* recupera atual */
+    inicializa_atual_inicio(l);
+    for(i = 2; i <= contador_atual; i++)
+		incrementa_atual(l);
+    
+    return 1;
 }
 
 void copia_lista(t_lista* A, t_lista* B, int contador_atual_A)

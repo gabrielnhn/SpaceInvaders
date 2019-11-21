@@ -57,15 +57,11 @@ int alien_chegou(J* jogo)
 
 int acabou(J* jogo)
 {
-	if ( morto(jogo) )
-		printf("morto\n");
-	else if ( alien_chegou(jogo) )
-		printf("chegou\n");
-	else if ( ganhou(jogo) )
-		printf("ganhou\n");
-	else 
+	if ( morto(jogo) || alien_chegou(jogo) || ganhou(jogo) )
+		return 1;
+	else
 		return 0;
-	return 1;
+	
 }
 
 int pediu_pra_sair(char input)
