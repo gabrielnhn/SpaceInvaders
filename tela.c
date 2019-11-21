@@ -5,28 +5,20 @@ void inicializa_tela()
     curs_set(FALSE);        /* não mostra o cursor na tela */
 }
 
-void imprime_tabuleiros(tabuleiro* A, tabuleiro* B, tabuleiro* C)
-/* imprime tabuleiro C por cima de B e B por cima de A */
+int hora_de_mudar_estado_impressao(J* jogo)
 {
-	int i, j;
-	for (i = 1; i <= NUM_LINHAS_TABULEIRO; i++)
-		for(j = 1; j <= NUM_COLUNAS_TABULEIRO; j++)
-		{
-			if (C->posi[i][j] != vazio)
-				mvprintw(i, j, "%c", C->posi[i][j]);
-
-			else if (B->posi[i][j] != vazio)
-				mvprintw(i, j, "%c", B->posi[i][j]);
-
-			else if (A->posi[i][j] != vazio)
-				mvprintw(i, j, "%c", A->posi[i][j]);
-			
-			else
-				mvprintw(i, j, " ");
-		}
+	if (jogo->contador_tempo % 20 == 0)
+		return 1;
+	else
+		return 0;
 }
 
-void imprime_lista(t_lista* L)
+void mudar_estado_impressao(J* jogo)
+{
+	jogo->estado_impressao = !jogo->estado_impressao;
+}
+
+void imprime_lista(int estado, t_lista* L)
 {
 	inicializa_atual_inicio(L);
 	int tam;
@@ -36,28 +28,79 @@ void imprime_lista(t_lista* L)
 	int i;
 	for(i = 1; i <= tam; i++)
 	{
-		consulta_item_atual(e, L)
+		consulta_item_atual(&e, L);
 
-		if (e->tipo == alien1)
-			mvprintw(e->i, e->j, desenho_t1);
+		if (estado == 1)
+		{
+			if (e->tipo == alien1)
+			{
+				mvprintw(e->i, e->j, desenho_t1_line1_s1);
+				mvprintw(e->i + 1, e->j, desenho_t1_line2_s1);
+				mvprintw(e->i + 2, e->j, desenho_t1_line3_s1);
+			}
+			else if (e->tipo == alien2)
+			{
+				mvprintw(e->i, e->j, desenho_t2_line1_s1);
+				mvprintw(e->i + 1, e->j, desenho_t2_line2_s1);
+				mvprintw(e->i + 2, e->j, desenho_t2_line3_s1);
+			}
+			else if (e->tipo == alien3)
+			{
+				mvprintw(e->i, e->j, desenho_t3_line1_s1);
+				mvprintw(e->i + 1, e->j, desenho_t3_line2_s1);
+				mvprintw(e->i + 2, e->j, desenho_t3_line3_s1);
+			}
+		}
+		else
+		{
+			if (e->tipo == alien1)
+			{
+				mvprintw(e->i, e->j, desenho_t1_line1_s2);
+				mvprintw(e->i + 1, e->j, desenho_t1_line2_s2);
+				mvprintw(e->i + 2, e->j, desenho_t1_line3_s2);
+			}
+			else if (e->tipo == alien2)
+			{
+				mvprintw(e->i, e->j, desenho_t2_line1_s2);
+				mvprintw(e->i + 1, e->j, desenho_t2_line2_s2);
+				mvprintw(e->i + 2, e->j, desenho_t2_line3_s2);
+			}
+			else if (e->tipo == alien3)
+			{
+				mvprintw(e->i, e->j, desenho_t3_line1_s2);
+				mvprintw(e->i + 1, e->j, desenho_t3_line2_s2);
+				mvprintw(e->i + 2, e->j, desenho_t3_line3_s2);
+			}
+		}
 		
-		else if (e->tipo == alien2)
-			mvprintw(e->i, e->j, desenho_t2);
-		
-		else if (e->tipo == alien3)
-			mvprintw(e->i, e->j, desenho_t3);
-		
+		if (e->tipo == alien_morrendo)
+		{
+			mvprintw(e->i, e->j, desenho_tmorrendo_line1);
+			mvprintw(e->i + 1, e->j, desenho_tmorrendo_line2);
+			mvprintw(e->i + 2, e->j, desenho_tmorrendo_line3);
+		}
+
 		else if (e->tipo == canhao)
-			mvprintw(e->i, e->j, desenho_canhao);
+		{
+			mvprintw(e->i, e->j, desenho_canhao_line1);
+			mvprintw(e->i + 1, e->j, desenho_canhao_line2);
+		}
 		
 		else if (e->tipo == tiro_canhao)
-			mvprintw(e->i, e->j, tiro_canhao);
+			mvprintw(e->i, e->j, desenho_tiro_canhao);
 		
 		else if (e->tipo == tiro_alien)
-			mvprintw(e->i, e->j, tiro_alien);
+			mvprintw(e->i, e->j, desenho_tiro_alien);
 
 		else if (e->tipo == barreira)
-			mvprintw(e->i, e->j, barreira);
+			mvprintw(e->i, e->j, desenho_barreira);
+		
+		else if (e->tipo == nave)
+		{
+			mvprintw(e->i, e->j, desenho_nave_line1);
+			mvprintw(e->i + 1, e->j, desenho_nave_line2);
+			mvprintw(e->i + 2, e->j, desenho_nave_line3);
+		}
 
 		incrementa_atual(L);
 	}
@@ -79,16 +122,33 @@ void imprime_borda()
 	}
 }
 
+/*
+void apaga_tela()
+{
+	int i, j;
+	for(i = 1; i <= NUM_LINHAS_TABULEIRO; i++)
+		for(j = 1; j <= NUM_COLUNAS_TABULEIRO; j++)
+		{
+			mvprintw(i, j, " ");
+		}
+}
+*/
 void imprime_tela(J* jogo)
 {
-	
-	imprime_tabuleiros( &(jogo->Matriz_canhao), jogo->TirosNovo, &(jogo->Matriz_aliens) );
+	erase();
+	imprime_borda();
+	imprime_lista( jogo->estado_impressao, &(jogo->lista) );
 	refresh();
 }
 
 int terminal_valido()
 {
-	return 1;
+	int nlin, ncol;
+	getmaxyx(stdscr, nlin, ncol);
+	if (nlin < NUM_LINHAS_TABULEIRO || ncol < NUM_COLUNAS_TABULEIRO)
+		return 0;
+	else
+		return 1;
 }
 
 void finaliza_tela()

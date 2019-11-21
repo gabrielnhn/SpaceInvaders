@@ -1,12 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "lib_lista.h"
+
 /*
 struct t_nodo {
-    int chave;
+    elemento e;
     struct t_nodo *prox;
     struct t_nodo *prev;
 };
+
 typedef struct t_nodo t_nodo;
 
 struct t_lista {
@@ -35,9 +37,6 @@ int inicializa_lista(t_lista *l)
     l->ini = comeco;
     l->fim = final;
 
-    /* decisao de projeto */
-    inicializa_atual_inicio(l);
-
     l->ini->prox = l->fim;
     l->fim->prox = NULL;
     l->fim->prev = l->ini;
@@ -58,7 +57,7 @@ int lista_vazia(t_lista *l)
     return 0;
 }
 
-int insere_inicio_lista(int item, t_lista *l)
+int insere_inicio_lista(elemento e, t_lista *l)
 /*
     Insere o elemento item no início da lista.
     Retorna 1 se a operação foi bem sucedida e zero caso contrário.
@@ -69,8 +68,7 @@ int insere_inicio_lista(int item, t_lista *l)
     if (novo == NULL)
         return 0;
     
-    novo->chave = item;
-
+    novo->e = e;
     novo->prox = l->ini->prox;
     novo->prev = l->ini;
     l->ini->prox->prev = novo;
@@ -92,21 +90,21 @@ int tamanho_lista(int *tam, t_lista *l)
     return 1;
 }
 
-int insere_fim_lista(int item, t_lista *l)
+int insere_fim_lista(elemento e, t_lista *l)
 /*
     Insere o elemento item no final da lista.
     Retorna 1 se a operação foi bem sucedida e zero caso contrário.
 */
 {
     if ( lista_vazia(l) )
-        return ( insere_inicio_lista(item, l) );
+        return ( insere_inicio_lista(e, l) );
 
     t_nodo* novo;
     novo = (t_nodo*)malloc( sizeof(t_nodo) );
     if (novo == NULL)
         return 0;
 
-    novo->chave = item;
+    novo->e = e;
     
     l->fim->prev->prox = novo;
     novo->prox = l->fim;
@@ -116,7 +114,7 @@ int insere_fim_lista(int item, t_lista *l)
     l->tamanho++;
     return 1;
 }
-int insere_ordenado_lista(int item, t_lista *l)
+int insere_ordenado_lista(elemento e, t_lista *l)
 /*
     Insere o elemento item na lista de maneira que ela fique em ordem
     crescente, do início para o final dela.
@@ -124,21 +122,21 @@ int insere_ordenado_lista(int item, t_lista *l)
 */
 {
     if ( lista_vazia(l) )
-        return insere_inicio_lista(item, l);
+        return insere_inicio_lista(e, l);
     
     t_nodo* aux;
     aux = l->ini->prox;
 
     int i;
-    for (i = 1; i < (l->tamanho) && (aux->chave) < item ; i++)
+    for (i = 1; i < (l->tamanho) && (aux->e.tipo) < e.tipo ; i++)
         aux = aux->prox;
     
     /* casos especiais */
-    if (i == 1 && (aux->chave) >= item)
-        return insere_inicio_lista(item, l);
+    if (i == 1 && (aux->e.tipo) >= e.tipo)
+        return insere_inicio_lista(e, l);
       
-    if (i >= l->tamanho && (aux->chave) < item)
-        return insere_fim_lista(item, l);
+    if (i >= l->tamanho && (aux->e.tipo) < e.tipo)
+        return insere_fim_lista(e, l);
     
     /* caso geral */
     t_nodo* novo;
@@ -146,7 +144,7 @@ int insere_ordenado_lista(int item, t_lista *l)
     if (novo == NULL)
         return 0;  
 
-    novo->chave = item;
+    novo->e = e;
     aux->prev->prox = novo;
     novo->prev = aux->prev;
     novo->prox = aux;
@@ -156,9 +154,9 @@ int insere_ordenado_lista(int item, t_lista *l)
     return 1;
 }
 
-int remove_inicio_lista(int *item, t_lista *l)
+int remove_inicio_lista(elemento *e, t_lista *l)
 /*
-    Remove o primeiro elemento da lista e o retorna em *item.
+    Remove o primeiro elemento da lista e o retorna em *e.
     Retorna 1 se a operação foi bem sucedida e zero caso contrário.
 */
 {
@@ -166,7 +164,7 @@ int remove_inicio_lista(int *item, t_lista *l)
         return 0;
 
     t_nodo* auxiliar;
-    *item = l->ini->prox->chave;
+    *e = l->ini->prox->e;
     
     auxiliar = l->ini->prox->prox;
     auxiliar->prev = l->ini;
@@ -177,18 +175,18 @@ int remove_inicio_lista(int *item, t_lista *l)
     return 1;
 }
 
-int remove_fim_lista(int* item, t_lista *l)
+int remove_fim_lista(elemento *e, t_lista *l)
 /*
-    Remove o último elemento da lista e o retorna em *item.
+    Remove o último elemento da lista e o retorna em *e.
     Retorna 1 se a operação foi bem sucedida e zero caso contrário.
 */
 {
     if ( lista_vazia(l) )
         return 0;
     else if ( l->tamanho == 1 )
-        return remove_inicio_lista(item, l);
+        return remove_inicio_lista(e, l);
 
-    *item = l->fim->prev->chave;
+    *e = l->fim->prev->e;
     t_nodo* auxiliar;
 
     auxiliar = l->fim->prev->prev;
@@ -198,60 +196,6 @@ int remove_fim_lista(int* item, t_lista *l)
 
     l->tamanho--;
     return 1;
-}
-int remove_item_lista(int chave, int *item, t_lista *l)
-/*
-    Se o elemento chave existir na lista, o retorna em *item.
-    Retorna 1 se a operação foi bem sucedida e zero caso contrário
-    (elemento não encontrado também retorna zero).
-*/
-{
-    if ( lista_vazia(l) )
-        return 0;
-
-    t_nodo* auxiliar;
-    auxiliar = l->ini->prox;
-
-    int i;
-    for(i = 1; i < (l->tamanho) && auxiliar->chave != chave; i++)
-        auxiliar = auxiliar->prox;
-
-    if ( auxiliar->chave != chave )
-        return 0;
-
-    if (i == l->tamanho)
-        return remove_fim_lista(item, l);
-
-
-    *item = auxiliar->chave;
-    auxiliar->prev->prox = auxiliar->prox;
-    auxiliar->prox->prev = auxiliar->prev;
-    free(auxiliar);
-
-    l->tamanho--;
-    return 1;
-}
-
-int pertence_lista(int chave, t_lista *l)
-/*
-    Retorna 1 se o elemento contendo a chave chave existe na lista,
-    caso contrário retorna zero.
-*/
-{
-    if ( lista_vazia(l) )
-        return 0;
-
-    t_nodo* auxiliar;
-    auxiliar = l->ini->prox;
-
-    int i;
-    for(i = 1; i < (l->tamanho) && auxiliar->chave != chave; i++)
-        auxiliar = auxiliar->prox;
-
-    if ( auxiliar->chave == chave )
-        return 1;
-    else
-        return 0;
 }
 int inicializa_atual_inicio(t_lista *l)
 /* 
@@ -309,9 +253,9 @@ void decrementa_atual(t_lista *l)
     else
         l->atual = l->atual->prev;
 }
-int consulta_item_atual(int *item, t_lista *l)
+int consulta_item_atual(elemento **e, t_lista *l)
 /*
-    Retorna em *item o valor contido na chave apontada pelo ponteiro atual. 
+    retorna em e o endereco do elemento atual 
     Se atual não for válido a função retorna zero senão retorna 1.
 */
 {
@@ -319,13 +263,14 @@ int consulta_item_atual(int *item, t_lista *l)
         return 0;
     else
     {
-        *item = l->atual->chave;
+        *e = &(l->atual->e);
         return 1;
     }
 }
-int remove_item_atual(int *item, t_lista *l)
+
+int remove_item_atual(elemento *e, t_lista *l)
 /*
-    Remove o elemento apontado por atual da lista l e o retorna em *item.
+    Remove o elemento apontado por atual da lista l e o retorna em *e.
     Faz o atual apontar para o sucessor do nodo removido.
     Retorna 1 se houve sucesso e zero caso contrário.
 */
@@ -336,14 +281,16 @@ int remove_item_atual(int *item, t_lista *l)
     if (l->atual->prox == l->fim)
     {
         l->atual = l->atual->prox;
-        return remove_fim_lista(item, l);
+        return remove_fim_lista(e, l);
     }
     
     if (l->atual->prev == l->ini)
     {
         l->atual = l->atual->prox;
-        return remove_inicio_lista(item, l);
+        return remove_inicio_lista(e, l);
     }
+
+    *e = l->atual->e;
 
     l->atual->prev->prox = l->atual->prox;
     l->atual->prox->prev = l->atual->prev;
@@ -353,14 +300,94 @@ int remove_item_atual(int *item, t_lista *l)
     return 1;
 
 }
+
+int remove_item_especifico(elemento e, t_lista* l, int contador_atual)
+{
+    int tam;
+    tamanho_lista(&tam, l);
+
+
+    inicializa_atual_inicio(l);
+	elemento* aux;
+    elemento lixo;
+	int i;
+    int tirou = 0;
+	for(i = 1; i <= tam && !tirou; i++)
+	{
+		consulta_item_atual(&aux, l);
+
+        if (aux->i == e.i && aux->j == e.j && e.tipo == aux->tipo)
+        {
+            /*if (i == tam)
+                remove_fim_lista(&lixo, l);
+            else if (i == 1)
+                remove_inicio_lista(&lixo, l);
+            else
+            {
+                l->atual->prev->prox = l->atual->prox;
+                l->atual->prox->prev = l->atual->prev;
+                free(l->atual);
+
+                l->tamanho--;
+            }
+            */
+            
+            remove_item_atual(&lixo, l);
+            tirou = 1;
+        }
+		incrementa_atual(l);
+	}
+
+    /* recupera atual */
+    inicializa_atual_inicio(l);
+    for(i = 2; i <= contador_atual; i++)
+		incrementa_atual(l);
+    
+    return 1;
+}
+
+void copia_lista(t_lista* A, t_lista* B, int contador_atual_A)
+/* nao altera atual */
+{
+    int tamA;
+    tamanho_lista(&tamA, A);
+
+
+    inicializa_atual_inicio(A);
+	elemento* e;
+	int i;
+	for(i = 1; i <= tamA; i++)
+	{
+		consulta_item_atual(&e, A);
+
+        insere_fim_lista(*e, B);
+
+		incrementa_atual(A);
+	}
+
+    /* recupera atual */
+    inicializa_atual_inicio(A);
+    for(i = 2; i <= contador_atual_A; i++)
+		incrementa_atual(A);
+    
+}
+
+void apaga_lista(t_lista* l)
+{
+    elemento auxiliar;
+    while ( !lista_vazia(l) )
+        remove_inicio_lista(&auxiliar, l);
+
+}
+
 void destroi_lista(t_lista *l)
 /*
     Remove todos os elementos da lista e faz com que ela aponte para NULL.
 */
 {
-    int auxiliar;
+    elemento auxiliar;
     while ( !lista_vazia(l) )
-        remove_inicio_lista(&auxiliar, l);
+        remove_fim_lista(&auxiliar, l);
 
     free(l->ini);
     free(l->fim);

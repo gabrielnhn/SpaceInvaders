@@ -5,9 +5,15 @@
 
 /* defines normais */
 #define milisec 1000
-#define constante_inicial_tempo 25
+#define constante_inicial_tempo 12
 #define VELOCIDADE_MAXIMA (constante_inicial_tempo - 1)
-#define QUANTIDADE_TIROS 4
+#define QUANTIDADE_TIROS 1
+#define tamanho_alien_x 3
+#define tamanho_alien_y 3
+#define tamanho_nave_x 8
+#define tamanho_nave_y 3
+#define tamanho_canhao_x 3
+#define tamanho_canhao_y 2
 
 /* inputs e definicoes de esquerda e direita */
 #define input_tiro ' '
@@ -19,8 +25,8 @@
 #define sentido_esquerda 0
 
 /* Tamanho do Tabuleiro */
-#define NUM_LINHAS_TABULEIRO 90 /* ? */
-#define NUM_COLUNAS_TABULEIRO 50 /* ? */
+#define NUM_LINHAS_TABULEIRO 28 /* ? */
+#define NUM_COLUNAS_TABULEIRO 90 /* ? */
 #define COEFICIENTE_SEPARACAO 8 /* ? */
 
 /* Linhas e colunas de Aliens */
@@ -32,36 +38,58 @@
 #define alien1 'a'
 #define alien2 'b'
 #define alien3 'c'
+#define alien_morrendo 'x'
 #define canhao 'd'
 #define tiro_canhao '"'
 #define tiro_alien '.'
 #define barreira '+'
+#define nave '9'
 
 
 /* Desenhos */
 /* t = tipo de alien */
-#define desenho_t1 "@@@\n@@@\n@@@ "
-#define desenho_t2 "###\n###\n###"
-#define desenho_t3 "&&&\n&&&\n&&&"
+#define desenho_t1_line1_s1 "@+@"
+#define desenho_t1_line1_s2 "@+@"
+#define desenho_t1_line2_s1 "+@+" 
+#define desenho_t1_line2_s2 "-@-"
+#define desenho_t1_line3_s1 "@+@" 
+#define desenho_t1_line3_s2 "@+@"
+
+#define desenho_t2_line1_s1 "###"
+#define desenho_t2_line1_s2 "###"
+#define desenho_t2_line2_s1 "[#]" 
+#define desenho_t2_line2_s2 "]#["
+#define desenho_t2_line3_s1 "###" 
+#define desenho_t2_line3_s2 "###"
+
+#define desenho_t3_line1_s1 "&&&" 
+#define desenho_t3_line1_s2 "&&&"
+#define desenho_t3_line2_s1 "<&>" 
+#define desenho_t3_line2_s2 ">&<"
+#define desenho_t3_line3_s1 "&&&" 
+#define desenho_t3_line3_s2 "&&&"
+
+#define desenho_tmorrendo_line1 "x x"
+#define desenho_tmorrendo_line2 " x "
+#define desenho_tmorrendo_line3 "x x"
 #define borda 'o'
-#define desenho_canhao " ~ \n~~~"
-#define tiro_canhao '"'
-#define tiro_alien '.'
-#define barreira '+'
+#define desenho_canhao_line1 "~~~"
+#define desenho_canhao_line2 "~~~"
+#define desenho_tiro_canhao "\""
+#define desenho_tiro_alien "."
+#define desenho_barreira "+"
+#define desenho_nave_line1 "???"
+#define desenho_nave_line2 "!*!"
+#define desenho_nave_line3 "???"
 
-/*struct struct_tabuleiro
-{
-	char posi[NUM_LINHAS_TABULEIRO + 2][NUM_COLUNAS_TABULEIRO + 2]; 
-};
-typedef struct struct_tabuleiro tabuleiro;
-*/
-
+/*
 struct s_elemento
 {
 	int i, j;
 	char tipo;
 };
 typedef struct s_elemento elemento;
+*/
 
 struct struct_jogo
 {
@@ -74,6 +102,7 @@ struct struct_jogo
 	int velocidade;
 	int contador_tempo;
 	int paralisacao;
+	int estado_impressao; /* para impressao dos elementos */
 };
 typedef struct struct_jogo J;
 

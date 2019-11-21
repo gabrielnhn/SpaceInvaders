@@ -1,6 +1,14 @@
+struct s_elemento
+{
+	int i, j;
+	char tipo;
+  int contador;
+};
+typedef struct s_elemento elemento;
 
 
-struct t_nodo {
+struct t_nodo
+{
     elemento e;
     struct t_nodo *prox;
     struct t_nodo *prev;
@@ -8,7 +16,8 @@ struct t_nodo {
 
 typedef struct t_nodo t_nodo;
 
-struct t_lista {
+struct t_lista
+{
     t_nodo *ini;
     t_nodo *atual;
     t_nodo *fim;
@@ -74,7 +83,7 @@ int remove_fim_lista(elemento *e, t_lista *l);
   Retorna 1 se a operação foi bem sucedida e zero caso contrário
   (elemento não encontrado também retorna zero).
 */
-int remove_item_lista(elemento e, elemento *e_aux, t_lista *l);
+/*int remove_item_lista(elemento e, elemento *e_aux, t_lista *l);*/
 
 /*
   Retorna 1 se o elemento contendo a chave chave existe na lista,
@@ -112,7 +121,7 @@ void decrementa_atual(t_lista *l);
   Retorna em *item o valor contido na chave apontada pelo ponteiro atual. 
   Se atual não for válido a função retorna zero senão retorna 1.
 */
-int consulta_item_atual(elemento *e, t_lista *l);
+int consulta_item_atual(elemento **e, t_lista *l);
 
 /*
   Remove o elemento apontado por atual da lista l e o retorna em *item.
@@ -120,3 +129,12 @@ int consulta_item_atual(elemento *e, t_lista *l);
   Retorna 1 se houve sucesso e zero caso contrário.
 */
 int remove_item_atual(elemento *e, t_lista *l);
+
+void copia_lista(t_lista* A, t_lista* B, int contador_atual_A);
+/* nao altera atual */
+
+void destroi_lista(t_lista* l);
+
+void apaga_lista(t_lista* l);
+
+int remove_item_especifico(elemento e, t_lista* l, int contador_atual);
