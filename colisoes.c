@@ -216,6 +216,20 @@ void processa_colisao(J* jogo, t_lista* L, elemento* e, int contador_atual, int*
 			*removeu = 1;	
 	}
 
+	else if (e->tipo == nave)
+	{
+		elemento tiro;
+		if ( tem_tiro_canhao_na_area(e->i, e->j, &aux, &tiro))		
+		{
+			remove_item_especifico(tiro, L, contador_atual);
+			remove_item_especifico(tiro, &(jogo->lista), contador_atual);
+			e->tipo = alien_morrendo;
+			e->contador = 8;
+		}
+		else if ( e->j < 0 )
+			*removeu = 1;
+	}
+
 	destroi_lista(&aux);
 
 }

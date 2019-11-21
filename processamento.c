@@ -8,7 +8,7 @@ int hora_de_mover_tiro_canhao(J* jogo)
 
 int hora_de_mover_tiro_alien(J* jogo)
 {
-	if (jogo->contador_tempo % 4 == 0)
+	if (jogo->contador_tempo % 6 == 0 && jogo->paralisacao == 0)
 		return 1;
 	else
 		return 0;
@@ -25,6 +25,7 @@ void processa_lista(J* jogo, char input)
 	mover_tiro_canhao = hora_de_mover_tiro_canhao(jogo);
 	if ( mover_alien )
 	{
+		mudar_estado_impressao(jogo);
 		tocou = tocou_borda(jogo);
 		if (tocou)
 		{
@@ -82,6 +83,16 @@ void processa_lista(J* jogo, char input)
 			processa_colisao(jogo, &L, e, contador_atual, &removeu);
 			if (removeu)
 				jogo->vivo = 0;
+		}
+
+		else if (e->tipo == nave)
+		{
+			if ( hora_de_mover_nave(jogo) )
+				move_esquerda_alien(e);
+
+			processa_colisao(jogo, &L, e, contador_atual, &removeu);
+			if (e->tipo == alien_morrendo)
+				jogo->paralisacao = 250;
 		}
 
 		if (!removeu)

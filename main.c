@@ -85,16 +85,22 @@ void space_invaders(J* jogo, int velocidade_inicial)
 
 		usleep(15 * milisec);
 		jogo->contador_tempo = jogo->contador_tempo + 1;
+
+		if ( hora_de_colocar_nave(jogo) )
+			colocar_nave(jogo);
 	}
 	while ( !acabou(jogo) && !pediu_pra_sair(input) );
 
-	if ( pediu_pra_sair(input) )
-		printf("pediu\n");
-
-	destroi_lista(&(jogo->lista));
+	destroi_lista( &(jogo->lista) );
 
 	if ( ganhou(jogo) && !pediu_pra_sair(input) )
-		space_invaders(jogo, velocidade_inicial + 3);
+	{
+		mvprintw((int)(NUM_LINHAS_TABULEIRO/2), (int)(NUM_COLUNAS_TABULEIRO/2), "Boa Campeao!");
+		refresh();
+		usleep(2000 * milisec);
+
+		space_invaders(jogo, velocidade_inicial + 1);
+	}
 	/* space invaders recursivo :O */
 }
 
@@ -112,5 +118,5 @@ int main()
 	space_invaders(jogo, 1);
 	
 	finaliza_tela();
-	return 9;
+	return 0;
 }

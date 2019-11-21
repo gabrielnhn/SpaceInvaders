@@ -25,7 +25,7 @@ void coloca_aliens(J* jogo)
 	
 	int i_relativo, j_relativo;
 	int i, j;
-	i = 2;
+	i = 3;
 	for(i_relativo = 1; i_relativo <= NUM_LINHAS_ALIENS; i_relativo++)
 	{	
 		j = 2;
@@ -35,7 +35,7 @@ void coloca_aliens(J* jogo)
 			j = j + 2 * tamanho_alien_x - 1;
 		}
 	
-		i = i + 2 * tamanho_alien_y - 1;
+		i = i + 2 * tamanho_alien_y - 2;
 	}
 }
 
@@ -78,4 +78,5 @@ void inicia_jogo(J* jogo, int velocidade_inicial)
 	jogo->contador_tempo = 0;
 	jogo->quantidade_aliens = NUM_ALIENS;
 	jogo->paralisacao = 0;
+	jogo->estado_impressao = 1;
 }

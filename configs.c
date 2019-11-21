@@ -5,7 +5,7 @@
 
 /* defines normais */
 #define milisec 1000
-#define constante_inicial_tempo 15
+#define constante_inicial_tempo 12
 #define VELOCIDADE_MAXIMA (constante_inicial_tempo - 1)
 #define QUANTIDADE_TIROS 1
 #define tamanho_alien_x 3
@@ -25,8 +25,8 @@
 #define sentido_esquerda 0
 
 /* Tamanho do Tabuleiro */
-#define NUM_LINHAS_TABULEIRO 40 /* ? */
-#define NUM_COLUNAS_TABULEIRO 80 /* ? */
+#define NUM_LINHAS_TABULEIRO 28 /* ? */
+#define NUM_COLUNAS_TABULEIRO 90 /* ? */
 #define COEFICIENTE_SEPARACAO 8 /* ? */
 
 /* Linhas e colunas de Aliens */
@@ -48,16 +48,27 @@
 
 /* Desenhos */
 /* t = tipo de alien */
+#define desenho_t1_line1_s1 "@+@"
+#define desenho_t1_line1_s2 "@+@"
+#define desenho_t1_line2_s1 "+@+" 
+#define desenho_t1_line2_s2 "-@-"
+#define desenho_t1_line3_s1 "@+@" 
+#define desenho_t1_line3_s2 "@+@"
 
-#define desenho_t1_line1 "@+@"
-#define desenho_t1_line2 "+@+"
-#define desenho_t1_line3 "@+@"
-#define desenho_t2_line1 "###"
-#define desenho_t2_line2 "[#]"
-#define desenho_t2_line3 "###"
-#define desenho_t3_line1 "&&&"
-#define desenho_t3_line2 "<&>"
-#define desenho_t3_line3 "&&&"
+#define desenho_t2_line1_s1 "###"
+#define desenho_t2_line1_s2 "###"
+#define desenho_t2_line2_s1 "[#]" 
+#define desenho_t2_line2_s2 "]#["
+#define desenho_t2_line3_s1 "###" 
+#define desenho_t2_line3_s2 "###"
+
+#define desenho_t3_line1_s1 "&&&" 
+#define desenho_t3_line1_s2 "&&&"
+#define desenho_t3_line2_s1 "<&>" 
+#define desenho_t3_line2_s2 ">&<"
+#define desenho_t3_line3_s1 "&&&" 
+#define desenho_t3_line3_s2 "&&&"
+
 #define desenho_tmorrendo_line1 "x x"
 #define desenho_tmorrendo_line2 " x "
 #define desenho_tmorrendo_line3 "x x"
@@ -67,7 +78,9 @@
 #define desenho_tiro_canhao "\""
 #define desenho_tiro_alien "."
 #define desenho_barreira "+"
-#define desenho_nave .
+#define desenho_nave_line1 "???"
+#define desenho_nave_line2 "!*!"
+#define desenho_nave_line3 "???"
 
 /*
 struct s_elemento
@@ -89,6 +102,7 @@ struct struct_jogo
 	int velocidade;
 	int contador_tempo;
 	int paralisacao;
+	int estado_impressao; /* para impressao dos elementos */
 };
 typedef struct struct_jogo J;
 

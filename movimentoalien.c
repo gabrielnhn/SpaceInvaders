@@ -65,7 +65,7 @@ void atira_alien(t_lista* L, elemento* A)
 
 int hora_de_atirar_aliens(J* jogo)
 {
-	if ( (jogo->contador_tempo % 15 == 0) && jogo->paralisacao == 0 )
+	if ( (jogo->contador_tempo % 13 == 0) && jogo->paralisacao == 0 )
 		return 1;
 	else 
 		return 0;
@@ -90,4 +90,29 @@ void move_e_atira_alien(t_lista* L, elemento* e_alien, int tocou, int mover, int
 	if ( atirar && ( (rand() % 200) < 1 ) )
 	/* 0.5% de chance */
 		atira_alien(L, e_alien);		
+}
+
+int hora_de_colocar_nave(J* jogo)
+{
+	if (jogo->contador_tempo % 700 == 0)
+		return 1;
+	else
+		return 0;
+}
+
+int hora_de_mover_nave(J* jogo)
+{
+	if (jogo->contador_tempo % 3 == 0)
+		return 1;
+	else
+		return 0;
+}
+
+void colocar_nave(J* jogo)
+{
+	elemento e_nave;
+	e_nave.tipo = nave;
+	e_nave.i = 1;
+	e_nave.j = NUM_COLUNAS_TABULEIRO + 1;
+	insere_fim_lista(e_nave, &(jogo->lista) );
 }
