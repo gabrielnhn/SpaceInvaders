@@ -135,3 +135,5 @@ void copia_lista(t_lista* A, t_lista* B, int contador_atual_A);
 void destroi_lista(t_lista* l);
 
 void apaga_lista(t_lista* l);
+
+int remove_item_especifico(elemento e, t_lista* l, int contador_atual);

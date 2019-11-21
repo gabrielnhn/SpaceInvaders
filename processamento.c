@@ -76,6 +76,7 @@ void processa_lista(J* jogo, char input)
 		if (!removeu)
 			insere_fim_lista(*e, &(jogo->lista) );
 		
+		tamanho_lista(&tam, &L);
 		incrementa_atual(&L);
 	}
 	destroi_lista(&L);

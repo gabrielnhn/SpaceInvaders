@@ -10,9 +10,9 @@ void move_tiros(t_lista* L, elemento* e, int hora_de_mover, int* removeu)
 			if ( dentro_da_matriz(e->i - 1, e->j) ) 
 				e->i--;
 
-			/*else
+			else
 				*removeu = 1;
-		*/}
+		}
 		else /* tiro_alien */
 		{
 			if ( dentro_da_matriz(e->i + 1, e->j) ) 
@@ -57,8 +57,9 @@ int tem_algo_em(int i, int j, t_lista* aux)
 	return 0;
 }
 
-int tem_tiro_canhao_na_area(int i_comeco, int j_comeco, t_lista* aux)
+int tem_tiro_canhao_na_area(int i_comeco, int j_comeco, t_lista* aux, int* tiro_i, int* tiro_j)
 /* verifica se ha algum tiro na regiao alien de ponta i, j */
+
 {
 	int tam;
     tamanho_lista(&tam, aux);
@@ -70,6 +71,7 @@ int tem_tiro_canhao_na_area(int i_comeco, int j_comeco, t_lista* aux)
 	{
 		consulta_item_atual(&e, aux);
 		
+		/*
 		if (e->tipo == tiro_canhao)
 		{
 			for(i = i_comeco; i <= i_comeco + tamanho_alien_y - 1; i++)
@@ -77,6 +79,20 @@ int tem_tiro_canhao_na_area(int i_comeco, int j_comeco, t_lista* aux)
 				{
 					if (e->i == i && e->j == j)
 						return 1;
+				}
+		}
+		*/
+		if (e->tipo == tiro_canhao)
+		{
+			for(i = i_comeco; i <= i_comeco + 3; i++)
+				for(j = j_comeco; j <= j_comeco + 2; j++)
+				{
+					if(e->i == i && e->j == j)
+					{
+						*tiro_i = e->i;
+						*tiro_j = e->j;
+						return 1;
+					}
 				}
 		}
 
@@ -99,15 +115,15 @@ int tem_tiro_ou_alien_em(int i, int j, t_lista* aux)
 		consulta_item_atual(&e, aux);
 		if (e->tipo == alien1 || e->tipo == alien2 || e->tipo == alien3)
 		{
-			for(y = e->i; y <= e->i + tamanho_alien_y - 1; y++)
-				for(x = e->j; x <= e->j + tamanho_alien_x - 1; x++)
+			for(y = e->i; y <= e->i + 2; y++)
+				for(x = e->j; x <= e->j + 2; x++)
 				{
 					if (x == j && y == i)
 						return 1;
 				}
 		}
 
-		else if (e->tipo == tiro_alien)
+		else if (e->tipo == tiro_alien || e->tipo == barreira)
 		{
 			if (e->i == i && e->j == j)
 				return 1;
@@ -187,8 +203,14 @@ void processa_colisao(J* jogo, t_lista* L, elemento* e, int contador_atual, int*
 
 	if (e->tipo == alien1 || e->tipo == alien2 || e->tipo == alien3)
 	{
-		if( tem_tiro_canhao_na_area(e->i, e->j, &aux) )
+		int tiro_i,tiro_j;
+		if( tem_tiro_canhao_na_area(e->i, e->j, &aux, &tiro_i, &tiro_j) )
 		{
+			elemento tiro;
+			tiro.i = tiro_i;
+			tiro.j = tiro_j;
+			tiro.tipo = tiro_canhao;
+			remove_item_especifico(tiro, L, contador_atual);
 			jogo->quantidade_aliens--;
 			e->tipo = alien_morrendo;
 		}
@@ -209,13 +231,13 @@ void processa_colisao(J* jogo, t_lista* L, elemento* e, int contador_atual, int*
 			*removeu = 1;	
 		}
 	}
-
+	/*
 	else if (e->tipo == tiro_canhao)
 	{
 		if ( tem_tiro_ou_alien_em(e->i, e->j, &aux) )
 			*removeu = 1;	
 	}
-
+	*/
 	else if (e->tipo == tiro_alien && *removeu == 0)
 	{
 		if (tem_barreira(e->i, e->j, &aux))
