@@ -58,7 +58,7 @@ void processa_lista(J* jogo, char input)
 
 		else if (e->tipo == alien1 || e->tipo == alien2 || e->tipo == alien3)
 		{
-			move_e_atira_alien(&(jogo->lista), e, tocou, mover_alien, atirar, jogo->sentido);
+			move_e_atira_alien(L, e, tocou, mover_alien, atirar, jogo->sentido);
 			processa_colisao(jogo, L, e, contador_atual, &removeu);
 			if (e->tipo == alien_morrendo)
 			{
@@ -103,7 +103,9 @@ void processa_lista(J* jogo, char input)
 		
 		if (removeu)
 			remove_item_especifico(*e, L, contador_atual + 1);
+
 		
+		tamanho_lista(&tam, L);	
 	}
 
 }

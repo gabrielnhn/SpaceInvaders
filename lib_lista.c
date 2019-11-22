@@ -278,17 +278,18 @@ int remove_item_atual(elemento *e, t_lista *l)
     if ( lista_vazia(l) || l->atual == NULL) 
         return 0;
     
+    if (l->atual->prev == l->ini)
+    {
+        l->atual = l->atual->prox;
+        return remove_inicio_lista(e, l);
+    }
+
     if (l->atual->prox == l->fim)
     {
         l->atual = l->atual->prox;
         return remove_fim_lista(e, l);
     }
     
-    if (l->atual->prev == l->ini)
-    {
-        l->atual = l->atual->prox;
-        return remove_inicio_lista(e, l);
-    }
 
     *e = l->atual->e;
 
@@ -334,6 +335,7 @@ int remove_item_especifico(elemento e, t_lista* l, int contador_atual)
             
             remove_item_atual(&lixo, l);
             tirou = 1;
+            break;
         }
 		incrementa_atual(l);
 	}
