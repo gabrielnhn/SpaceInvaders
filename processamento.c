@@ -64,6 +64,12 @@ void processa_lista(J* jogo, char input)
 		{
 			move_e_atira_alien(&(jogo->lista), e, tocou, mover_alien, atirar, jogo->sentido);
 			processa_colisao(jogo, &L, e, contador_atual, &removeu);
+			if (e->tipo == alien_morrendo)
+			{
+				jogo->quantidade_aliens--;
+				e->contador = 8;
+				jogo->score = jogo->score + 100;
+			}
 		}
 
 		else if (e->tipo == barreira)
@@ -92,7 +98,10 @@ void processa_lista(J* jogo, char input)
 
 			processa_colisao(jogo, &L, e, contador_atual, &removeu);
 			if (e->tipo == alien_morrendo)
+			{
 				jogo->paralisacao = 250;
+				jogo->score = jogo->score + 300;
+			}
 		}
 
 		if (!removeu)

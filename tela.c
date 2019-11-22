@@ -128,6 +128,7 @@ void imprime_tela(J* jogo)
 	erase();
 	imprime_borda();
 	imprime_lista( jogo->estado_impressao, &(jogo->lista) );
+	mvprintw(NUM_LINHAS_TABULEIRO + 3, NUM_COLUNAS_TABULEIRO / 2 - 3, "%d", jogo->score);
 	refresh();
 }
 

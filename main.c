@@ -100,7 +100,8 @@ void space_invaders(J* jogo, int velocidade_inicial)
 
 	if ( ganhou(jogo) && !pediu_pra_sair(input) )
 	{
-		imprime_tela(jogo);
+		erase();
+		imprime_borda();
 		mvprintw(NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 6, "Boa Campeao!");
 		refresh();
 		usleep(2000 * milisec);
@@ -112,12 +113,23 @@ void space_invaders(J* jogo, int velocidade_inicial)
 
 	else if ( morto(jogo) )
 	{
-		imprime_tela(jogo);
-		mvprintw( NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 2, "bruh");
+		erase();
+		imprime_borda();
+		mvprintw( NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 4, "GAME OVER");
 		refresh();
 		usleep(2000 * milisec);
 	}
 	finaliza_estruturas(jogo);
+}
+
+void imprime_inicio()
+{
+	clear();
+	imprime_borda();
+	mvprintw(NUM_LINHAS_TABULEIRO/2 - 1, NUM_COLUNAS_TABULEIRO/2 - 7, "Space Invaders!");
+	mvprintw(NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 22, "Por Gabriel Nascarella Hishida do Nascimento");
+	refresh();
+	usleep(1500 * milisec);
 }
 
 int main()
@@ -130,7 +142,9 @@ int main()
 	J estrutura_jogo;
 	J* jogo = &estrutura_jogo;
 	inicializa_estruturas(jogo);
+	jogo->score = 0;
 
+	imprime_inicio();
 	space_invaders(jogo, 1);
 	
 	finaliza_tela();

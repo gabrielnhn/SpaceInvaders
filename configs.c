@@ -98,7 +98,7 @@ struct struct_jogo
 	int vivo; /* 1 somente se o jogador esta vivo */
 	int sentido; /* 'sentido_direita'(1) se os aliens estao indo para direita, 'sentido_esquerda'(0) se para a esquerda */ 
 	int quantidade_aliens; /* vivos */
-
+	int score;
 	int velocidade;
 	int contador_tempo;
 	int paralisacao;

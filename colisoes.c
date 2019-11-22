@@ -187,9 +187,7 @@ void processa_colisao(J* jogo, t_lista* L, elemento* e, int contador_atual, int*
 		{
 			remove_item_especifico(tiro, L, contador_atual);
 			remove_item_especifico(tiro, &(jogo->lista), contador_atual);
-			jogo->quantidade_aliens--;
 			e->tipo = alien_morrendo;
-			e->contador = 8;
 		}
 	}
 
