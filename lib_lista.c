@@ -163,6 +163,16 @@ int remove_inicio_lista(elemento *e, t_lista *l)
     if ( lista_vazia(l) )
         return 0;
 
+    else if (l->tamanho == 1)
+    {
+        *e = l->ini->prox->e;
+        free(l->ini->prox);
+        l->ini->prox = l->fim;
+        l->fim->prev = l->ini;
+        l->tamanho--;
+        return 1;
+    }
+
     t_nodo* auxiliar;
     *e = l->ini->prox->e;
     
@@ -305,6 +315,7 @@ int remove_item_atual(elemento *e, t_lista *l)
 }
 
 int remove_item_especifico(elemento e, t_lista* l, int contador_atual)
+/* remove o item e da lista l sem perder o ponteiro atual (quando se informa contador_atual) */
 {
     int tam;
     tamanho_lista(&tam, l);
@@ -321,20 +332,6 @@ int remove_item_especifico(elemento e, t_lista* l, int contador_atual)
 
         if (aux->i == e.i && aux->j == e.j && e.tipo == aux->tipo)
         {
-            /*if (i == tam)
-                remove_fim_lista(&lixo, l);
-            else if (i == 1)
-                remove_inicio_lista(&lixo, l);
-            else
-            {
-                l->atual->prev->prox = l->atual->prox;
-                l->atual->prox->prev = l->atual->prev;
-                free(l->atual);
-
-                l->tamanho--;
-            }
-            */
-            
             remove_item_atual(&lixo, l);
             tirou = 1;
             break;
@@ -351,7 +348,7 @@ int remove_item_especifico(elemento e, t_lista* l, int contador_atual)
 }
 
 void copia_lista(t_lista* A, t_lista* B, int contador_atual_A)
-/* nao altera atual */
+/* copia a lista A na lista B (assumindo que B esta vazia), sem perder o ponteiro atual de A */
 {
     int tamA;
     tamanho_lista(&tamA, A);
@@ -376,22 +373,14 @@ void copia_lista(t_lista* A, t_lista* B, int contador_atual_A)
     
 }
 
-void apaga_lista(t_lista* l)
-{
-    elemento auxiliar;
-    while ( !lista_vazia(l) )
-        remove_inicio_lista(&auxiliar, l);
-
-}
-
 void destroi_lista(t_lista *l)
-/*
-    Remove todos os elementos da lista e faz com que ela aponte para NULL.
-*/
+/* Remove todos os elementos da lista e faz com que ela aponte para NULL. */
 {
     elemento auxiliar;
     while ( !lista_vazia(l) )
-        remove_fim_lista(&auxiliar, l);
+    {
+        remove_inicio_lista(&auxiliar, l);
+    }
 
     free(l->ini);
     free(l->fim);

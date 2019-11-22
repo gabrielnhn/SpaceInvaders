@@ -1,5 +1,6 @@
 
 char tipo_do_alien(int linha_relativa)
+/* retorna qual sera o tipo do alien de acordo com sua linha relativa */
 {
 	if (linha_relativa == 1)
 		return alien3;
@@ -10,6 +11,7 @@ char tipo_do_alien(int linha_relativa)
 }
 
 void cria_alien_na_coordenada(J* jogo, int linha_posicao, int coluna_posicao, int linha_relativa)
+/* insere um alien na lista de elementos */
 {
 	elemento A;
 	A.i = linha_posicao;
@@ -20,6 +22,7 @@ void cria_alien_na_coordenada(J* jogo, int linha_posicao, int coluna_posicao, in
 }
 
 void coloca_aliens(J* jogo)
+/* coloca todos os aliens da rodada na lista de elementos */
 {
 	jogo->quantidade_aliens = NUM_ALIENS;
 	
@@ -39,24 +42,24 @@ void coloca_aliens(J* jogo)
 	}
 }
 
-
-
 void coloca_canhao_e_barreiras(J* jogo)
 {
+	/* insere um canhao na lista de elementos */
 	elemento e_canhao;
-
 	e_canhao.i = NUM_LINHAS_TABULEIRO - 1;
 	e_canhao.j = (NUM_COLUNAS_TABULEIRO / 2);
 	e_canhao.tipo = canhao;
 	insere_inicio_lista( e_canhao, &(jogo->lista) );
 	
+
+	/* insere varias barreiras na lista de elementos*/
 	elemento e_barreira;
 	e_barreira.tipo = barreira;
 
 	int linha;
 	int coluna;
 	int k;
-	for(linha = NUM_LINHAS_TABULEIRO - 4; linha <= NUM_LINHAS_TABULEIRO - 3; linha++)
+	for(linha = NUM_LINHAS_TABULEIRO - 3; linha <= NUM_LINHAS_TABULEIRO - 2; linha++)
 	{
 		e_barreira.i = linha;
 		for(coluna = 3; coluna <= NUM_COLUNAS_TABULEIRO; coluna+=20)
@@ -72,14 +75,14 @@ void coloca_canhao_e_barreiras(J* jogo)
 
 void inicia_jogo(J* jogo, int velocidade_inicial)
 {
-	jogo->vivo = 1;
-	inicializa_lista( &(jogo->lista) );
-	coloca_canhao_e_barreiras(jogo);
+	jogo->vivo = 1; /* o canhao esta vivo */
+	inicializa_lista( &(jogo->lista) ); /* inicializamos a estrutura a ser usada */
+	coloca_canhao_e_barreiras(jogo); 
 	coloca_aliens(jogo);
-	jogo->velocidade = velocidade_inicial;
-	jogo->sentido = sentido_direita;
-	jogo->contador_tempo = 0;
-	jogo->quantidade_aliens = NUM_ALIENS;
-	jogo->paralisacao = 0;
-	jogo->estado_impressao = 1;
+	jogo->velocidade = velocidade_inicial; /* a partir de uma velocidade_inicial dada como parametro */
+	jogo->sentido = sentido_direita; /* os aliens comecam indo pra direita */
+	jogo->contador_tempo = 0; /* o tempo comeca */
+	jogo->quantidade_aliens = NUM_ALIENS; /* todos os aliens estao vivos */ 
+	jogo->paralisacao = 0; /* o jogo nao esta paralisado */
+	jogo->estado_impressao = 1; /* o jogo comeca no estado de impressao 1 */
 }

@@ -1,4 +1,4 @@
- void move_direita_alien(elemento* A)
+void move_direita_alien(elemento* A)
 {
 	A->j++;
 }
@@ -14,6 +14,7 @@ void desce_alien(elemento* A)
 }
 
 int hora_de_mover_aliens(J* jogo)
+/* tambem decrementa o contador de paralisacao */
 {
 	if ( (jogo->contador_tempo % (constante_inicial_tempo - jogo->velocidade) == 0) && jogo->paralisacao == 0)
 		return 1;
@@ -27,6 +28,7 @@ int hora_de_mover_aliens(J* jogo)
 }
 
 int tocou_borda(J* jogo)
+/* retorna 1 se qualquer alien toca alguma das bordas laterais */
 {
 	t_lista* L;
 	L = &(jogo->lista);
@@ -52,6 +54,7 @@ int tocou_borda(J* jogo)
 
 
 void atira_alien(t_lista* L, elemento* A)
+/* insere um tiro na lista de elementos */
 {
 	elemento e_tiro_alien;
 	e_tiro_alien.tipo = tiro_alien;
@@ -72,23 +75,21 @@ int hora_de_atirar_aliens(J* jogo)
 }
 
 void move_e_atira_alien(t_lista* L, elemento* e_alien, int tocou, int mover, int atirar, int sentido)
+/* recebe tocou_borda(), hora_de_mover_aliens() e hora_de_atirar_aliens() como parametro, por motivos de otimizacao */
 {
 	if ( mover &&  tocou )
-	{
-		/* desce todos os aliens */			
-		desce_alien(e_alien); /* explicacao na pagina x */
-	
-	}
+		desce_alien(e_alien);
+
 	if (mover)
 	{
 			if (sentido == sentido_direita)
-				move_direita_alien(e_alien); /* explicacao na pagina x */	
+				move_direita_alien(e_alien);	
 			else
 				move_esquerda_alien(e_alien);
 	}
 	
 	if ( atirar && ( (rand() % 200) <= 1 ) )
-	/* 1% de chance */
+	/* 1% de chance de que o alien atire */
 		atira_alien(L, e_alien);		
 }
 
@@ -109,6 +110,7 @@ int hora_de_mover_nave(J* jogo)
 }
 
 void colocar_nave(J* jogo)
+/* insere a nave mae na lista de elementos */
 {
 	elemento e_nave;
 	e_nave.tipo = nave;

@@ -14,6 +14,8 @@ int hora_de_mudar_estado_impressao(J* jogo)
 }
 
 void mudar_estado_impressao(J* jogo)
+/* os aliens devem alternar entre seus desenhos. o estado de seu desenho eh chamado
+ de "estado de impressao" */
 {
 	jogo->estado_impressao = !jogo->estado_impressao;
 }
@@ -30,7 +32,7 @@ void imprime_lista(int estado, t_lista* L)
 	{
 		consulta_item_atual(&e, L);
 
-		if (estado == 1)
+		if (estado == 1) /* imprime, linha por linha, cada alien sem seu estado 1 */
 		{
 			if (e->tipo == alien1)
 			{
@@ -51,7 +53,7 @@ void imprime_lista(int estado, t_lista* L)
 				mvprintw(e->i + 2, e->j, desenho_t3_line3_s1);
 			}
 		}
-		else
+		else /* imprime, linha por linha, cada alien sem seu estado 0 */
 		{
 			if (e->tipo == alien1)
 			{
@@ -73,6 +75,8 @@ void imprime_lista(int estado, t_lista* L)
 			}
 		}
 		
+		/* imprime outros desenhos */
+
 		if (e->tipo == alien_morrendo)
 		{
 			mvprintw(e->i, e->j, desenho_tmorrendo_line1);
@@ -125,11 +129,11 @@ void imprime_borda()
 
 void imprime_tela(J* jogo)
 {
-	erase();
+	erase(); /* apaga a tela */
 	imprime_borda();
 	imprime_lista( jogo->estado_impressao, &(jogo->lista) );
-	mvprintw(NUM_LINHAS_TABULEIRO + 3, NUM_COLUNAS_TABULEIRO / 2 - 3, "%d", jogo->score);
-	refresh();
+	mvprintw(NUM_LINHAS_TABULEIRO + 3, NUM_COLUNAS_TABULEIRO / 2 - 3, "%d", jogo->score); /* imprime o score do jogo na parte de baixo da tela */
+	refresh(); /* imprime as coisas na tela principal */
 }
 
 int terminal_valido()

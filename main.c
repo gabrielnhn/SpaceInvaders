@@ -23,12 +23,13 @@ int morto(J* jogo)
 }
 
 int ganhou(J* jogo)
+/* o jogador ganha se nao ha aliens restantes */
 {
 	return (jogo->quantidade_aliens == 0);
 }
 
 int alien_chegou(J* jogo)
-/* retorna 1 se, para qualquer alien vivo, seu 'i'(linha) e maior/igual que o numero de linhas do tabuleiro */
+/* retorna 1 se, para qualquer alien vivo, sua linha e maior/igual que o numero de linhas do tabuleiro */
 {
 	t_lista* L;
 	L = &(jogo->lista);
@@ -65,6 +66,7 @@ int acabou(J* jogo)
 }
 
 int pediu_pra_sair(char input)
+/* verifica se o jogador nao quer sair do jogo */
 {
 	if (input == safeword)
 		return 1;
@@ -76,12 +78,30 @@ void finaliza_estruturas(J* jogo)
 	destroi_lista( &(jogo->lista) );
 }
 
+void game_over()
+{
+	erase();
+	imprime_borda();
+	mvprintw( NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 4, "GAME OVER");
+	refresh();
+	usleep(2000 * milisec);
+}
+
+void parabens()
+{
+	erase();
+	imprime_borda();
+	mvprintw(NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 6, "Boa, Campeao!");
+	refresh();
+	usleep(2000 * milisec);
+}
+
 void space_invaders(J* jogo, int velocidade_inicial)
 {
 	inicia_jogo(jogo, velocidade_inicial);
 	inicializa_configuracoes();
-	imprime_borda();
 	char input;
+
 	do 
 	{
 		imprime_tela(jogo);
@@ -89,44 +109,31 @@ void space_invaders(J* jogo, int velocidade_inicial)
 		processa_lista( jogo, input );
 
 		usleep(15 * milisec);
-		jogo->contador_tempo = jogo->contador_tempo + 1;
+		jogo->contador_tempo++;
 
 		if ( hora_de_colocar_nave(jogo) )
 			colocar_nave(jogo);
 	}
 	while ( !acabou(jogo) && !pediu_pra_sair(input) );
 
-	destroi_lista( &(jogo->lista) );
+	finaliza_estruturas(jogo);
 
 	if ( ganhou(jogo) && !pediu_pra_sair(input) )
 	{
-		erase();
-		imprime_borda();
-		mvprintw(NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 6, "Boa Campeao!");
-		refresh();
-		usleep(2000 * milisec);
-
-		finaliza_estruturas(jogo);
+		parabens();
 		space_invaders(jogo, velocidade_inicial + 1);
-		/* space invaders recursivo :O */
+		/* space invaders recursivo :D */
 	}
 
 	else if ( morto(jogo) || alien_chegou(jogo) )
-	{
-		erase();
-		imprime_borda();
-		mvprintw( NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 4, "GAME OVER");
-		refresh();
-		usleep(2000 * milisec);
-	}
-	finaliza_estruturas(jogo);
+		game_over();
 }
 
 void imprime_inicio()
 {
 	clear();
 	imprime_borda();
-	mvprintw(NUM_LINHAS_TABULEIRO/2 - 1, NUM_COLUNAS_TABULEIRO/2 - 7, "Space Invaders!");
+	mvprintw(NUM_LINHAS_TABULEIRO/2 - 1, NUM_COLUNAS_TABULEIRO/2 - 7, "Space Invaders");
 	mvprintw(NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 22, "Por Gabriel Nascarella Hishida do Nascimento");
 	refresh();
 	usleep(1500 * milisec);

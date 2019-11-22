@@ -79,13 +79,6 @@ int remove_inicio_lista(elemento *e, t_lista *l);
 int remove_fim_lista(elemento *e, t_lista *l);
 
 /*
-  Se o elemento chave existir na lista, o retorna em *aux.
-  Retorna 1 se a operação foi bem sucedida e zero caso contrário
-  (elemento não encontrado também retorna zero).
-*/
-/*int remove_item_lista(elemento e, elemento *e_aux, t_lista *l);*/
-
-/*
   Retorna 1 se o elemento contendo a chave chave existe na lista,
   caso contrário retorna zero.
 */
@@ -129,12 +122,16 @@ int consulta_item_atual(elemento **e, t_lista *l);
   Retorna 1 se houve sucesso e zero caso contrário.
 */
 int remove_item_atual(elemento *e, t_lista *l);
-
-void copia_lista(t_lista* A, t_lista* B, int contador_atual_A);
-/* nao altera atual */
-
-void destroi_lista(t_lista* l);
-
-void apaga_lista(t_lista* l);
+/* Remove o elemento apontado por atual da lista l e o retorna em *e.
+    Faz o atual apontar para o sucessor do nodo removido.
+    Retorna 1 se houve sucesso e zero caso contrário. */
 
 int remove_item_especifico(elemento e, t_lista* l, int contador_atual);
+/* remove o item e da lista l sem perder o ponteiro atual (quando se informa contador_atual) */
+
+void copia_lista(t_lista* A, t_lista* B, int contador_atual_A);
+/* copia a lista A na lista B (assumindo que B esta vazia), sem perder o ponteiro atual de A */
+
+void destroi_lista(t_lista* l);
+/* Remove todos os elementos da lista e faz com que ela aponte para NULL. */
+
