@@ -56,10 +56,10 @@ void atira_alien(t_lista* L, elemento* A)
 	elemento e_tiro_alien;
 	e_tiro_alien.tipo = tiro_alien;
 
-	e_tiro_alien.i = A->i - 3;
+	e_tiro_alien.i = A->i + 3;
 	e_tiro_alien.j = A->j + 1;
 
-	insere_inicio_lista(e_tiro_alien, L );
+	insere_fim_lista(e_tiro_alien, L );
 
 }
 
@@ -87,8 +87,8 @@ void move_e_atira_alien(t_lista* L, elemento* e_alien, int tocou, int mover, int
 				move_esquerda_alien(e_alien);
 	}
 	
-	if ( atirar && ( (rand() % 200) < 1 ) )
-	/* 0.5% de chance */
+	if ( atirar && ( (rand() % 200) <= 1 ) )
+	/* 1% de chance */
 		atira_alien(L, e_alien);		
 }
 

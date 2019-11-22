@@ -1,12 +1,12 @@
 void move_esquerda_canhao(elemento* e_canhao)
 {
-	if ( dentro_da_matriz(e_canhao->i, e_canhao->j - 1) )
+	if ( dentro_da_matriz(e_canhao->i, e_canhao->j - tamanho_canhao_x) )
 		e_canhao->j--;
 }
 
 void move_direita_canhao(elemento* e_canhao)
 {
-	if ( dentro_da_matriz(e_canhao->i, e_canhao->j + 1) )
+	if ( dentro_da_matriz(e_canhao->i, e_canhao->j + tamanho_canhao_x) )
 		e_canhao->j++;
 }
 

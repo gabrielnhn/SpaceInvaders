@@ -71,6 +71,11 @@ int pediu_pra_sair(char input)
 	return 0;
 }
 
+void finaliza_estruturas(J* jogo)
+{
+	destroi_lista( &(jogo->lista) );
+}
+
 void space_invaders(J* jogo, int velocidade_inicial)
 {
 	inicia_jogo(jogo, velocidade_inicial);
@@ -95,13 +100,24 @@ void space_invaders(J* jogo, int velocidade_inicial)
 
 	if ( ganhou(jogo) && !pediu_pra_sair(input) )
 	{
-		mvprintw((int)(NUM_LINHAS_TABULEIRO/2), (int)(NUM_COLUNAS_TABULEIRO/2), "Boa Campeao!");
+		imprime_tela(jogo);
+		mvprintw(NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 6, "Boa Campeao!");
 		refresh();
 		usleep(2000 * milisec);
 
+		finaliza_estruturas(jogo);
 		space_invaders(jogo, velocidade_inicial + 1);
+		/* space invaders recursivo :O */
 	}
-	/* space invaders recursivo :O */
+
+	else if ( morto(jogo) )
+	{
+		imprime_tela(jogo);
+		mvprintw( NUM_LINHAS_TABULEIRO/2, NUM_COLUNAS_TABULEIRO/2 - 2, "bruh");
+		refresh();
+		usleep(2000 * milisec);
+	}
+	finaliza_estruturas(jogo);
 }
 
 int main()

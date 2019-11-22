@@ -8,7 +8,7 @@ int hora_de_mover_tiro_canhao(J* jogo)
 
 int hora_de_mover_tiro_alien(J* jogo)
 {
-	if (jogo->contador_tempo % 6 == 0 && jogo->paralisacao == 0)
+	if (jogo->contador_tempo % 6 == 0)
 		return 1;
 	else
 		return 0;

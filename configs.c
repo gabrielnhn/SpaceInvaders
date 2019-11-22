@@ -76,10 +76,10 @@
 #define desenho_canhao_line1 "~~~"
 #define desenho_canhao_line2 "~~~"
 #define desenho_tiro_canhao "\""
-#define desenho_tiro_alien "."
+#define desenho_tiro_alien "*"
 #define desenho_barreira "+"
 #define desenho_nave_line1 "???"
-#define desenho_nave_line2 "!*!"
+#define desenho_nave_line2 "!T!"
 #define desenho_nave_line3 "???"
 
 /*
