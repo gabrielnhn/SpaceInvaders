@@ -185,8 +185,8 @@ void processa_colisao(J* jogo, t_lista* L, elemento* e, int contador_atual, int*
 		elemento tiro;
 		if( tem_tiro_canhao_na_area(e->i, e->j, &aux, &tiro) )
 		{
-			remove_item_especifico(tiro, L, contador_atual);
-			remove_item_especifico(tiro, &(jogo->lista), contador_atual);
+			remove_item_especifico(tiro, L, contador_atual);/*
+			remove_item_especifico(tiro, &(jogo->lista), contador_atual);*/
 			e->tipo = alien_morrendo;
 		}
 	}
@@ -199,11 +199,11 @@ void processa_colisao(J* jogo, t_lista* L, elemento* e, int contador_atual, int*
 		{
 			if (foi_tiro)
 			{
-				if (tiro.tipo == tiro_canhao)
+				/*if (tiro.tipo == tiro_canhao)*/
 					remove_item_especifico(tiro, L, contador_atual);
-				else
+				/*else
 					remove_item_especifico(tiro, &(jogo->lista), contador_atual);
-			}
+			*/}
 			*removeu = 1;	
 		}
 	}
@@ -219,9 +219,9 @@ void processa_colisao(J* jogo, t_lista* L, elemento* e, int contador_atual, int*
 		elemento tiro;
 		if ( tem_tiro_canhao_na_area(e->i, e->j, &aux, &tiro))		
 		{
-			remove_item_especifico(tiro, L, contador_atual);
+			/*remove_item_especifico(tiro, L, contador_atual);*//*
 			remove_item_especifico(tiro, &(jogo->lista), contador_atual);
-			e->tipo = alien_morrendo;
+			*/e->tipo = alien_morrendo;
 			e->contador = 8;
 		}
 		else if ( e->j < 0 )
