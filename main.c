@@ -111,7 +111,7 @@ void space_invaders(J* jogo, int velocidade_inicial)
 		/* space invaders recursivo :O */
 	}
 
-	else if ( morto(jogo) )
+	else if ( morto(jogo) || alien_chegou(jogo) )
 	{
 		erase();
 		imprime_borda();

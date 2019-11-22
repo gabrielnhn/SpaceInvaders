@@ -295,11 +295,13 @@ int remove_item_atual(elemento *e, t_lista *l)
 
     l->atual->prev->prox = l->atual->prox;
     l->atual->prox->prev = l->atual->prev;
-    free(l->atual);
+    t_nodo* aux;
+    aux = l->atual;
+    incrementa_atual(l);
+    free(aux);
 
     l->tamanho--;
     return 1;
-
 }
 
 int remove_item_especifico(elemento e, t_lista* l, int contador_atual)

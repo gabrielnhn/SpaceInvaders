@@ -99,13 +99,17 @@ void processa_lista(J* jogo, char input)
 				jogo->score = jogo->score + 300;
 			}
 		}
-		incrementa_atual(L);
 		
 		if (removeu)
-			remove_item_especifico(*e, L, contador_atual + 1);
-
-		
-		tamanho_lista(&tam, L);	
+		{
+			/*remove_item_especifico(*e, L, contador_atual + 1);*/
+			elemento lixo;
+			remove_item_atual(&lixo, L);
+			tamanho_lista(&tam, L);
+			contador_atual--;
+		}
+		else
+			incrementa_atual(L);	
 	}
 
 }
