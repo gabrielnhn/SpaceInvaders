@@ -7,7 +7,7 @@
 #define milisec 1000
 #define constante_inicial_tempo 12
 #define VELOCIDADE_MAXIMA (constante_inicial_tempo - 1)
-#define QUANTIDADE_TIROS 1
+#define QUANTIDADE_TIROS_MAX 2
 #define tamanho_alien_x 3
 #define tamanho_alien_y 3
 #define tamanho_nave_x 8
@@ -25,9 +25,8 @@
 #define sentido_esquerda 0
 
 /* Tamanho do Tabuleiro */
-#define NUM_LINHAS_TABULEIRO 28 /* ? */
-#define NUM_COLUNAS_TABULEIRO 90 /* ? */
-#define COEFICIENTE_SEPARACAO 8 /* ? */
+#define NUM_LINHAS_TABULEIRO 28 
+#define NUM_COLUNAS_TABULEIRO 90
 
 /* Linhas e colunas de Aliens */
 #define NUM_LINHAS_ALIENS 5
@@ -45,42 +44,43 @@
 #define barreira '+'
 #define nave '9'
 
-
 /* Desenhos */
 /* t = tipo de alien */
-#define desenho_t1_line1_s1 "@+@"
-#define desenho_t1_line1_s2 "@+@"
-#define desenho_t1_line2_s1 "+@+" 
-#define desenho_t1_line2_s2 "-@-"
-#define desenho_t1_line3_s1 "@+@" 
-#define desenho_t1_line3_s2 "@+@"
+#define desenho_t1_line1_s1 "$+$"
+#define desenho_t1_line2_s1 "o$o" 
+#define desenho_t1_line3_s1 "$+$" 
+#define desenho_t1_line1_s2 "$+$"
+#define desenho_t1_line2_s2 "@$@"
+#define desenho_t1_line3_s2 "$+$"
 
-#define desenho_t2_line1_s1 "###"
-#define desenho_t2_line1_s2 "###"
+#define desenho_t2_line1_s1 "#~#"
 #define desenho_t2_line2_s1 "[#]" 
+#define desenho_t2_line3_s1 "#~#" 
+#define desenho_t2_line1_s2 "#~#"
 #define desenho_t2_line2_s2 "]#["
-#define desenho_t2_line3_s1 "###" 
-#define desenho_t2_line3_s2 "###"
+#define desenho_t2_line3_s2 "#~#"
 
-#define desenho_t3_line1_s1 "&&&" 
-#define desenho_t3_line1_s2 "&&&"
+#define desenho_t3_line1_s1 "&!&" 
 #define desenho_t3_line2_s1 "<&>" 
+#define desenho_t3_line3_s1 "&!&" 
+#define desenho_t3_line1_s2 "&!&"
 #define desenho_t3_line2_s2 ">&<"
-#define desenho_t3_line3_s1 "&&&" 
-#define desenho_t3_line3_s2 "&&&"
+#define desenho_t3_line3_s2 "&!&"
 
-#define desenho_tmorrendo_line1 "x x"
+#define desenho_tmorrendo_line1 "\\ /"
 #define desenho_tmorrendo_line2 " x "
-#define desenho_tmorrendo_line3 "x x"
-#define borda 'o'
-#define desenho_canhao_line1 "~~~"
-#define desenho_canhao_line2 "~~~"
+#define desenho_tmorrendo_line3 "/ \\"
+
+#define desenho_canhao_line1 ".^."
+#define desenho_canhao_line2 "/~\\"
+
 #define desenho_tiro_canhao "\""
-#define desenho_tiro_alien "."
-#define desenho_barreira "+"
-#define desenho_nave_line1 "???"
-#define desenho_nave_line2 "!*!"
-#define desenho_nave_line3 "???"
+#define desenho_tiro_alien "*"
+#define desenho_barreira "H"
+
+#define desenho_nave_line1 "888"
+#define desenho_nave_line2 "-Y-"
+#define desenho_nave_line3 "\\V/"
 
 /*
 struct s_elemento
@@ -97,11 +97,11 @@ struct struct_jogo
 
 	int vivo; /* 1 somente se o jogador esta vivo */
 	int sentido; /* 'sentido_direita'(1) se os aliens estao indo para direita, 'sentido_esquerda'(0) se para a esquerda */ 
-	int quantidade_aliens; /* vivos */
-
-	int velocidade;
-	int contador_tempo;
-	int paralisacao;
+	int quantidade_aliens; /* que estao vivos */
+	int score; /* pontuacao */
+	int velocidade; /* aumenta a cada vez que os aliens tocam as bordas */
+	int contador_tempo; /* incrementa a cada 15ms */
+	int paralisacao; /* contador de paralisacao */
 	int estado_impressao; /* para impressao dos elementos */
 };
 typedef struct struct_jogo J;
@@ -115,7 +115,6 @@ void inicializa_configuracoes()
 
 char ler_input()
 {
-	cbreak(); 
 	char x;
 	x = getch();
 
@@ -130,6 +129,7 @@ char ler_input()
 
 	else if (x == safeword)
 		return x;
+	
 	else
 		return vazio;	
 }

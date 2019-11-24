@@ -1,16 +1,18 @@
 void move_esquerda_canhao(elemento* e_canhao)
 {
-	if ( dentro_da_matriz(e_canhao->i, e_canhao->j - 1) )
+	if ( dentro_da_matriz(e_canhao->i, e_canhao->j - tamanho_canhao_x) )
 		e_canhao->j--;
 }
 
 void move_direita_canhao(elemento* e_canhao)
 {
-	if ( dentro_da_matriz(e_canhao->i, e_canhao->j + 1) )
+	if ( dentro_da_matriz(e_canhao->i, e_canhao->j + tamanho_canhao_x) )
 		e_canhao->j++;
 }
 
 int pode_atirar_canhao(t_lista* L, int contador_atual)
+/* verifica se a quantidade de tiros na lista eh menor que QUANTIDADE_TIROS_MAX, e se sim, retorna 1 */
+/* isso tudo sem perder o ponteiro atual */
 {
 	int tam;
     tamanho_lista(&tam, L);
@@ -34,15 +36,14 @@ int pode_atirar_canhao(t_lista* L, int contador_atual)
     for(i = 2; i <= contador_atual; i++)
 		incrementa_atual(L);
 
-	if (contador_tiros <= QUANTIDADE_TIROS)
+	if (contador_tiros < QUANTIDADE_TIROS_MAX)
 		return 1;
 	else
 		return 0;
-	
 }
 
 void atira_canhao(t_lista* L, elemento* e_canhao, int contador_atual)
-/* coloca um tiro na posicao acima do canhao na lista L */
+/* insere um tiro na lista de elementos */
 {
 	if ( pode_atirar_canhao(L, contador_atual) )
 	{

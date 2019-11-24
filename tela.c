@@ -14,6 +14,8 @@ int hora_de_mudar_estado_impressao(J* jogo)
 }
 
 void mudar_estado_impressao(J* jogo)
+/* os aliens devem alternar entre seus desenhos. o estado de seu desenho eh chamado
+ de "estado de impressao" */
 {
 	jogo->estado_impressao = !jogo->estado_impressao;
 }
@@ -30,7 +32,7 @@ void imprime_lista(int estado, t_lista* L)
 	{
 		consulta_item_atual(&e, L);
 
-		if (estado == 1)
+		if (estado == 1) /* imprime, linha por linha, cada alien sem seu estado 1 */
 		{
 			if (e->tipo == alien1)
 			{
@@ -51,7 +53,7 @@ void imprime_lista(int estado, t_lista* L)
 				mvprintw(e->i + 2, e->j, desenho_t3_line3_s1);
 			}
 		}
-		else
+		else /* imprime, linha por linha, cada alien sem seu estado 0 */
 		{
 			if (e->tipo == alien1)
 			{
@@ -73,6 +75,8 @@ void imprime_lista(int estado, t_lista* L)
 			}
 		}
 		
+		/* imprime outros desenhos */
+
 		if (e->tipo == alien_morrendo)
 		{
 			mvprintw(e->i, e->j, desenho_tmorrendo_line1);
@@ -111,41 +115,32 @@ void imprime_borda()
 	int k; 
 	for(k = 0; k <= NUM_COLUNAS_TABULEIRO + 1; k++)
 	{
-		mvprintw(0, k, "%c", borda);
-		mvprintw(NUM_LINHAS_TABULEIRO + 1, k, "%c", borda);
+		mvprintw(0, k, ";");
+		mvprintw(NUM_LINHAS_TABULEIRO + 1, k, ";");
 	}
 
 	for(k = 0; k <= NUM_LINHAS_TABULEIRO + 1; k++)
 	{
-		mvprintw(k, 0, "%c", borda);
-		mvprintw(k, NUM_COLUNAS_TABULEIRO + 1, "%c", borda);
+		mvprintw(k, 0, ";");
+		mvprintw(k, NUM_COLUNAS_TABULEIRO + 1, ";");
 	}
 }
 
-/*
-void apaga_tela()
-{
-	int i, j;
-	for(i = 1; i <= NUM_LINHAS_TABULEIRO; i++)
-		for(j = 1; j <= NUM_COLUNAS_TABULEIRO; j++)
-		{
-			mvprintw(i, j, " ");
-		}
-}
-*/
+
 void imprime_tela(J* jogo)
 {
-	erase();
+	erase(); /* apaga a tela */
 	imprime_borda();
 	imprime_lista( jogo->estado_impressao, &(jogo->lista) );
-	refresh();
+	mvprintw(NUM_LINHAS_TABULEIRO + 3, NUM_COLUNAS_TABULEIRO / 2 - 3, "%d", jogo->score); /* imprime o score do jogo na parte de baixo da tela */
+	refresh(); /* imprime as coisas na tela principal */
 }
 
 int terminal_valido()
 {
 	int nlin, ncol;
 	getmaxyx(stdscr, nlin, ncol);
-	if (nlin < NUM_LINHAS_TABULEIRO || ncol < NUM_COLUNAS_TABULEIRO)
+	if (nlin > NUM_LINHAS_TABULEIRO + 1 || ncol > NUM_COLUNAS_TABULEIRO + 1)
 		return 0;
 	else
 		return 1;
@@ -154,9 +149,4 @@ int terminal_valido()
 void finaliza_tela()
 {
 	endwin();
-}
-
-void finaliza_estruturas()
-{
-	return;
 }
