@@ -1,5 +1,4 @@
-#include <stdlib.h> 
-#include <time.h>  
+#include "colisoes.h"
 
 void move_tiros(t_lista* L, elemento* e, int hora_de_mover_alien, int hora_de_mover_canhao, int* removeu)
 /* tenta mover os tiros para suas respectivas posicoes, e se nao puder, os marca para serem removidos */
@@ -94,7 +93,7 @@ int tiro_colidiu_no_alien(int i_comeco, int j_comeco, t_lista* aux, elemento* ti
 	return 0;
 }
 
-int algo_colidiu_no_canhao(int i_comeco, int j_comeco, t_lista* aux) /* do canhao */
+int algo_colidiu_no_canhao(int i_comeco, int j_comeco, t_lista* aux) 
 /* verifica se algo esta na area do canhao */
 {
 	int tam;

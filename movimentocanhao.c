@@ -1,3 +1,5 @@
+#include "movimentocanhao.h"
+
 void move_esquerda_canhao(elemento* e_canhao)
 {
 	if ( dentro_da_matriz(e_canhao->i, e_canhao->j - tamanho_canhao_x) )
@@ -57,6 +59,7 @@ void atira_canhao(t_lista* L, elemento* e_canhao, int contador_atual)
 }
 
 void move_e_atira_canhao(t_lista* L, elemento* e_canhao, char input, int contador_atual)
+/* realiza as instrucoes que o canhao deve fazer na rodada */
 {
 		if (input == input_tiro)
 			atira_canhao(L, e_canhao, contador_atual);

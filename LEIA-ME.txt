@@ -1,0 +1,20 @@
+Space Invaders
+Programação I - CI1001
+2019/2
+
+A compilação do programa pode ser feita usando o script compila.sh, dada a permissão de execução.
+Depois disso, o programa pode ser executado usando o comando ./space_invaders
+
+Controla-se o canhão usando as teclas A e D para mover-se para a esquerda e direita, respectivamente.
+A barra de espaço atira o canhão.
+Os aliens são de tamanho 3 linhas x 3 colunas
+
+As funções usadas no programa estão distribuídas nos diversos arquivos .c e seus respectivos headers .h.
+Alterações referentes à preferências do jogo podem ser feitas acessando o arquivo configs.h.
+
+A lógica da implementação do jogo é de usar uma lista ligada em que se guarda todos os elementos do jogo e, quando vamos verificar a relação entre um elemento e outros,
+copiamos a lista em uma lista auxiliar para fazer estas comparações.
+
+Gabriel Nascarella Hishida do Nascimento
+11/2019
+

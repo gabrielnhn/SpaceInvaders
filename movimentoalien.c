@@ -1,3 +1,5 @@
+#include "movimentoalien.h"
+
 void move_direita_alien(elemento* A)
 {
 	A->j++;
@@ -75,7 +77,8 @@ int hora_de_atirar_aliens(J* jogo)
 }
 
 void move_e_atira_alien(t_lista* L, elemento* e_alien, int tocou, int mover, int atirar, int sentido)
-/* recebe tocou_borda(), hora_de_mover_aliens() e hora_de_atirar_aliens() como parametro, por motivos de otimizacao */
+/*	realiza todas as instrucoes que o alien deve fazer na rodada. 
+ recebe tocou_borda(), hora_de_mover_aliens() e hora_de_atirar_aliens() como parametro, por motivos de otimizacao */
 {
 	if ( mover &&  tocou )
 		desce_alien(e_alien);

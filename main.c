@@ -1,14 +1,13 @@
 #include "lib_lista.h"
-#include "configs.c"
-#include "inicializacao.c"
-#include "movimentoalien.c"
-#include "movimentocanhao.c"
-#include "colisoes.c"
-#include "tela.c"
-#include "processamento.c"
+#include "configs.h"
+#include "inicializacao.h"
+#include "movimentoalien.h"
+#include "movimentocanhao.h"
+#include "colisoes.h"
+#include "tela.h"
+#include "processamento.h"
 
-
-void inicializa_estruturas(J* jogo)
+void inicializa_estruturas()
 {
 	inicializa_configuracoes();
 	inicializa_tela(); 
@@ -141,19 +140,23 @@ void imprime_inicio()
 
 int main()
 {
+	inicializa_estruturas();
+
 	if ( !terminal_valido() )
 	{
+		finaliza_tela();
 		printf("Tamanho de Terminal Invalido\n");
 		return -1;
 	}
+	
 	J estrutura_jogo;
 	J* jogo = &estrutura_jogo;
-	inicializa_estruturas(jogo);
 	jogo->score = 0;
 
 	imprime_inicio();
 	space_invaders(jogo, 1);
 	
 	finaliza_tela();
+	printf("Score: %ld \n", jogo->score);
 	return 0;
 }
