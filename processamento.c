@@ -1,6 +1,8 @@
+#include "processamento.h"
+
 int hora_de_mover_tiro_canhao(J* jogo)
 {
-	if (jogo->contador_tempo % 3 == 0)
+	if (jogo->contador_tempo % 2 == 0)
 		return 1;
 	else
 		return 0;
@@ -15,6 +17,7 @@ int hora_de_mover_tiro_alien(J* jogo)
 }
 
 void processa_lista(J* jogo, char input)
+/* processa todos os elementos da lista de jogo */
 {
 	/* recebe os parametros a partir do estado do jogo */
 	int mover_alien, mover_tiro_alien, mover_tiro_canhao, tocou, atirar;

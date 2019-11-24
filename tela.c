@@ -1,3 +1,5 @@
+#include "tela.h"
+
 void inicializa_tela()
 {
 	initscr();              /* inicia a tela */
@@ -132,7 +134,7 @@ void imprime_tela(J* jogo)
 	erase(); /* apaga a tela */
 	imprime_borda();
 	imprime_lista( jogo->estado_impressao, &(jogo->lista) );
-	mvprintw(NUM_LINHAS_TABULEIRO + 3, NUM_COLUNAS_TABULEIRO / 2 - 3, "%d", jogo->score); /* imprime o score do jogo na parte de baixo da tela */
+	mvprintw(NUM_LINHAS_TABULEIRO + 3, NUM_COLUNAS_TABULEIRO / 2 - 3, "%ld", jogo->score); /* imprime o score do jogo na parte de baixo da tela */
 	refresh(); /* imprime as coisas na tela principal */
 }
 
@@ -140,7 +142,7 @@ int terminal_valido()
 {
 	int nlin, ncol;
 	getmaxyx(stdscr, nlin, ncol);
-	if (nlin > NUM_LINHAS_TABULEIRO + 1 || ncol > NUM_COLUNAS_TABULEIRO + 1)
+	if (nlin < NUM_LINHAS_TABULEIRO + 1 || ncol < NUM_COLUNAS_TABULEIRO + 1)
 		return 0;
 	else
 		return 1;

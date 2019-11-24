@@ -1,4 +1,6 @@
 
+#include "inicializacao.h"
+
 char tipo_do_alien(int linha_relativa)
 /* retorna qual sera o tipo do alien de acordo com sua linha relativa */
 {
